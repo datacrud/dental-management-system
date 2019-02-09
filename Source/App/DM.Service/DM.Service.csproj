@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CFF7BA40-4228-48DF-B14C-B9741889F004}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DM.Service</RootNamespace>
+    <AssemblyName>DM.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppointmentService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Contacts\IAppointmentService.cs" />
+    <Compile Include="Contacts\IBaseService.cs" />
+    <Compile Include="Contacts\IDoctorService.cs" />
+    <Compile Include="Contacts\IInventoryService.cs" />
+    <Compile Include="Contacts\IPatientMedicalServiceService.cs" />
+    <Compile Include="Contacts\IPatientCreateService.cs" />
+    <Compile Include="Contacts\IPaymentService.cs" />
+    <Compile Include="Contacts\IPrescriptionService.cs" />
+    <Compile Include="Contacts\IProductService.cs" />
+    <Compile Include="Contacts\IMedicalServiceService.cs" />
+    <Compile Include="DoctorService.cs" />
+    <Compile Include="InventoryService.cs" />
+    <Compile Include="PatientMedicalServiceService.cs" />
+    <Compile Include="PatientCreateService.cs" />
+    <Compile Include="PaymentService.cs" />
+    <Compile Include="PrescriptionService.cs" />
+    <Compile Include="ProductService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MedicalServiceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DM.Models\DM.Models.csproj">
+      <Project>{76528B50-5265-4AA8-8CFD-2F93AE4FBE93}</Project>
+      <Name>DM.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DM.Repository\DM.Repository.csproj">
+      <Project>{3726409D-4CC5-4A23-A2FD-D7E9940D3F4B}</Project>
+      <Name>DM.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DM.RequestModels\DM.RequestModels.csproj">
+      <Project>{29E324EF-8D66-47EF-94BA-AFA1A92EE1F1}</Project>
+      <Name>DM.RequestModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DM.ResponseModels\DM.ResponseModels.csproj">
+      <Project>{45A4402E-BE7D-47E1-BD2D-197B2571CFEB}</Project>
+      <Name>DM.ResponseModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DM.ViewModels\DM.ViewModels.csproj">
+      <Project>{358C17C9-0E45-400F-913C-6EE39345789C}</Project>
+      <Name>DM.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,63 @@
+﻿
+<div class="row">
+    
+
+    <!--<div class="btn btn-default col col-xs-12 col-sm-9 col-md-9 col-lg-9">-->
+    <div class="form form-horizontal form-group">
+
+        <div class="col col-xs-12 col-sm-5 col-md-4 col-lg-4" style="padding-bottom: 10px;">
+            <form ng-submit="search()">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search by product name, code" ng-model="key" required="required" ng-change="isKeyNull(key)" />
+                    <span type="submit" class="input-group-addon"><a style="cursor: pointer; text-decoration: none" class="glyphicon glyphicon-search btn-floating" ng-click="search()"></a></span>
+                </div>
+            </form>
+
+        </div>
+                
+
+        <div class="col col-xs-12 col-sm-3 col-md-2 col-lg-2" style="padding-bottom: 10px;">
+            <select class="form-control pull-right" ng-options="i.Id as i.Name for i in filters" ng-model="filterId" ng-change="filter(filterId)"></select>
+        </div>
+
+        <div class="col col-xs-12 col-sm-4 col-md-6 col-lg-6" style="padding-bottom: 10px;">
+            <div class="btn-group btn-group-justified" role="group">
+                <a ui-sref="root.stock" class="btn btn-success">Inventory</a>
+                <a ui-sref="root.product" class="btn btn-success">Product</a>
+                <a ui-sref="root.stock-report" class="btn btn-success">Report</a>
+                <a ui-sref="root.patient" ng-show="isAdminUser || isSystemAdminUser" class="btn btn-info"><span class="glyphicon glyphicon-transfer"></span> &nbsp; Patient</a>
+            </div>
+        </div>
+        <br/><br/>
+    </div>
+
+
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!--<div class="myGrid" ui-grid="gridOptions" ui-grid-edit ui-grid-selection></div>-->
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+
+    <!--</div>-->
+
+</div>

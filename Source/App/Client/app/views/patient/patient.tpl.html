@@ -1,0 +1,58 @@
+﻿<div class="row">
+
+    <!--<div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+    <div class="form-group">
+        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom: 10px">
+            <form class="form" ng-submit="search()">
+                <div class="input-group">
+                    <input class="form-control input-field" type="text" placeholder="Search By Patient Name, Patient Id" required="required" ng-model="key" ng-change="search()" />
+                    <span type="submit" class="input-group-addon"><a style="cursor: pointer; text-decoration: none" class="glyphicon glyphicon-search btn-floating" ng-click="search()"></a></span>
+                </div>
+            </form>
+        </div>        
+        <div class="col col-xs-12 col-sm-3 col-md-2 col-lg-2" style="padding-bottom: 10px">
+            <select class="form-control pull-right" ng-model="filterId" ng-options="i.Id as i.Name for i in filters" ng-change="search()"></select>
+        </div>
+
+        <div class="col col-xs-12 col-sm-5 col-md-6 col-lg-6" style="padding-bottom: 10px">
+            <div class="btn-group btn-group-justified" role="group">
+                <a ng-click="toAddPatientView()" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> Patient</a>
+                <a ui-sref="root.patient-service" class="btn btn-success">Service</a>
+                <a ui-sref="root.patient-appointment" class="btn btn-success">Appoinment</a>
+                <a ui-sref="root.patient-report" class="btn btn-success">Report</a>
+                <a ui-sref="root.dashboard" ng-show="isAdminUser || isSystemAdminUser" class="btn btn-info"><span class="glyphicon glyphicon-transfer"></span> &nbsp; Stock</a>
+            </div>
+        </div>
+        <br/><br/>
+    </div>    
+    <!--</div>-->
+
+    <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!--<div class="myGrid" ui-grid="gridOptions" ui-grid-edit ui-grid-selection></div>-->
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+
+        <!--<nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>-->
+    </div>
+    
+
+    <!--</div>-->
+
+</div>

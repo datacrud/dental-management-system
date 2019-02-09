@@ -1,0 +1,354 @@
+﻿<div class="row">
+
+    <div>
+        <button ui-sref="root.patient" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></button>
+    </div>
+
+    <div class="col col-xs-12 col-sm-5 col-md-5 col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Patient Info</h3>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Patient Id: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" disabled="disabled" ng-model="patientInfo.Code"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Patient Name: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" ng-model="patientInfo.Name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Age: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" ng-model="patientInfo.Age"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Phone: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" ng-model="patientInfo.Phone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Email: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" ng-model="patientInfo.Email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Address: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="text" class="form-control" ng-model="patientInfo.Address"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">&nbsp;</label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <button type="button" class="btn btn-success" ng-click="update(patientInfo)">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel-footer">
+
+            </div>
+
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Service Payment</h3>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="savePayment()">
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Date: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="datetime" class="form-control" ng-model="payment.Created" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Amount: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <input type="number" class="form-control" ng-model="payment.Amount" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">Service Comment: </label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <textarea class="form-control" ng-model="payment.Comment" required="required"></textarea></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col col-xs-6 col-sm-5 col-md-4 col-lg-4">&nbsp;</label>
+                        <div class="col col-xs-6 col-sm-7 col-md-8 col-lg-8">
+                            <button type="submit" class="btn btn-success" ng-show="!isUpdateMode">Add</button>
+                            <button type="button" class="btn btn-danger" ng-click="Update()" ng-show="isUpdateMode">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel-footer"></div>
+
+        </div>
+
+    </div>
+
+    <div class="col col-xs-12 col-sm-7 col-md-7 col-lg-7">
+        
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Services & Payment Detail</h3>
+            </div>
+
+            <div class="panel-body">
+                <h4>Pateint Taken Services:
+                    <span class="pull-right" style="font-size: 12px">
+                        <span>Bill Created: {{patientPrescription.Created | date:"MM/dd/yyyy 'at' h:mma"}}</span> &nbsp;&nbsp;&nbsp;
+                        <span>Bill No: {{patientPrescription.Code}}</span>
+                    </span>
+                </h4>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr ng-repeat="p in patientPrescriptionMedicalServices">
+                        <td>{{p.Name}}</td>
+                        <td>{{p.Charge}} Tk</td>
+                    </tr>
+
+                    <tr>
+                        <td>Discount ({{patientPrescription.DiscountPercent}} %)</td>
+                        <td>-{{patientPrescription.DiscountAmount}} Tk</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-success" ng-click="addMoreService()">Add More Service</button>
+                <!--<button class="btn btn-danger">Refund Service</button>-->
+
+                <br/>
+                <br/>
+                <h4>Payment History:</h4>
+                <table class="table table-striped  table-responsive table-hover table-bordered" >
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Service Comment</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="p in payments" id="printable">
+                        <td>{{p.Created | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                        <td>{{p.Amount}}</td>
+                        <td>{{p.Comment}}</td>
+                        <td>
+                            <!--<a class="glyphicon glyphicon-edit" style="cursor: pointer;" ng-click="editPayment(p)"></a>-->
+                            <a class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="deletePayment(p.Id)"></a>
+                        </td>
+                        <td>
+                            <a class="glyphicon glyphicon-print" style="cursor: pointer;" ng-click="open('lg', p)"></a>
+                        </td>
+                    </tr>                    
+                    </tbody>
+                </table>
+
+                <br/>
+
+                <table class="table table-condensed">
+                    <tbody>
+                    <tr>
+                        <th>Total Charge: </th>
+                        <th>{{patientPrescription.TotalCharge}} Tk</th>
+                    </tr>
+                    <tr>
+                        <th>Discount ({{patientPrescription.DiscountPercent}} %): </th>
+                        <th>{{patientPrescription.DiscountAmount}} Tk</th>
+                    </tr>
+                    <tr>
+                        <th>Total Payable: </th>
+                        <th class="text-info">{{patientPrescription.TotalPayable}} Tk</th>
+                    </tr>
+                    <tr>
+                        <th>Total Paid: </th>
+                        <th>{{patientPrescription.TotalPaid}} Tk</th>
+                    </tr>
+                    <tr>
+                        <th>Total Due: </th>
+                        <th class="text-danger">{{patientPrescription.TotalDue}} Tk</th>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <br />
+                <button class="btn btn-success" ng-click="newBill()">New Bill</button>
+                <button class="btn btn-danger" ng-click="forceNewBill()">Force New Bill</button>
+                <!--<button class="btn btn-info pull-right" ng-click="printDiv('printable');">Print Preview</button>-->
+
+
+                <!--<div class="row">
+                    <div class="col col-xs-6 col-sm-5 col-md-5 col-lg-5"><strong>Total Charge: </strong>
+                    </div>
+                    <div class="col col-xs-6 col-sm-7 col-md-7 col-lg-7"><strong>{{patientPrescription.TotalCharge}} Tk</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-5 col-md-5 col-lg-5">
+                        <strong>Discount ({{patientPrescription.DiscountPercent}} %): </strong>
+                    </div>
+                    <div class="col col-xs-6 col-sm-7 col-md-7 col-lg-7">
+                        <strong>{{patientPrescription.DiscountAmount}} Tk</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-5 col-md-5 col-lg-5">
+                        <strong>Total Payable: </strong>
+                    </div>
+                    <div class="col col-xs-6 col-sm-7 col-md-7 col-lg-7 text-info">
+                        <strong>{{patientPrescription.TotalPayable}} Tk</strong>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-5 col-md-5 col-lg-5"><strong>Paid: </strong>
+                    </div>
+                    <div class="col col-xs-6 col-sm-7 col-md-7 col-lg-7"><strong>{{patientPrescription.TotalPaid}} Tk</strong>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-5 col-md-5 col-lg-5"><strong>Due: </strong>
+                    </div>
+                    <div class="col col-xs-6 col-sm-7 col-md-7 col-lg-7 text-danger"><strong>{{patientPrescription.TotalDue}} Tk</strong>
+                    </div>
+                </div>-->
+               
+            </div>
+
+            <div class="panel-footer"></div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Print Model -->
+<script type="text/ng-template" id="patientPaymentModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Payment Receipt</h3>
+    </div>
+    <div class="modal-body" id="printableModel" style="width:750px; height:auto; float:left">
+        <div class="col col-md-6" style="width:45%; float:left; margin-right: 2.5%">
+            <div class="row text-center">
+                <img src="app../../images/logo/logo-raw.png" />
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-sm-12 text-center"><strong><i>Office Copy</i></strong></div>
+            </div>
+            <br/>
+            <div class="row">                
+                <div class="col col-sm-6"><strong>Patient Id: </strong>{{patient.Code}}</div>
+                <div class="col col-sm-6"><strong>Name: </strong>{{patient.Name}}</div>
+                <div class="col col-sm-6"><strong>Date: </strong>{{today | date: ''}}</div>
+                <div class="col col-sm-6"><strong>Age: </strong>{{patient.Age}}</div>                
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-sm-6"><strong>Total Charge: </strong>{{patientBill.TotalCharge}}</div>
+                <div class="col col-sm-6"><strong>Discount: </strong>{{patientBill.DiscountAmount}}</div>
+                <div class="col col-sm-6"><strong>Total Payable: </strong>{{patientBill.TotalPayable}}</div>
+                <div class="col col-sm-6"><strong>Total Paid: </strong>{{patientBill.TotalPaid}}</div>
+                <div class="col col-sm-6"><strong>Due: </strong>{{patientBill.TotalDue}}</div>
+            </div>
+            <br />
+            <table class="table table-responsive table-bordered" width="390px;" height="auto" border="1">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{payment.Created | date : 'dd-MM-yyyy'}}</td>
+                        <td>{{payment.Amount}}</td>
+                        <td>{{payment.Comment}}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>    
+        <div class="col col-md-6" style="width:45%; float:right; margin-left:2.5%;">
+            <div class="row text-center">
+                <img src="app../../images/logo/logo-raw.png" />
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-sm-12 text-center"><strong><i>Patient Copy</i></strong></div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-sm-6"><strong>Patient Id: </strong>{{patient.Code}}</div>
+                <div class="col col-sm-6"><strong>Name: </strong>{{patient.Name}}</div>
+                <div class="col col-sm-6"><strong>Date: </strong>{{today | date: ''}}</div>
+                <div class="col col-sm-6"><strong>Age: </strong>{{patient.Age}}</div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-sm-6"><strong>Total Charge: </strong>{{patientBill.TotalCharge}}</div>
+                <div class="col col-sm-6"><strong>Discount: </strong>{{patientBill.DiscountAmount}}</div>
+                <div class="col col-sm-6"><strong>Total Payable: </strong>{{patientBill.TotalPayable}}</div>
+                <div class="col col-sm-6"><strong>Total Paid: </strong>{{patientBill.TotalPaid}}</div>
+                <div class="col col-sm-6"><strong>Due: </strong>{{patientBill.TotalDue}}</div>
+            </div>
+            <br />
+            <table class="table table-responsive table-bordered" width="390px;" height="auto" border="1">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{payment.Created | date : 'dd-MM-yyyy'}}</td>
+                        <td>{{payment.Amount}}</td>
+                        <td>{{payment.Comment}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col col-md-12">
+            <button class="btn btn-info pull-left" type="button" ng-click="printDiv('printableModel')">Print</button>
+            <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</script>
+<!-- end -->
+
+
+
+<script>
+    $(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>
