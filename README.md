@@ -10,4 +10,4 @@ Inventory video demo : https://youtu.be/DJOpG0O9hEM
 3. Angular UI Router
 4. Angular UI Bootstrap
 
-It is a clinet and server distributed applciation. 
+It is a client and server distributed applciation. 
