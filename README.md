@@ -13,5 +13,6 @@ Inventory video demo : https://youtu.be/DJOpG0O9hEM
 6. Angular UI Router
 7. Angular UI Bootstrap
 8. Bootstrap 3
+9. Gulp based versioning distribution package
 
 It is a client and server distributed applciation.
