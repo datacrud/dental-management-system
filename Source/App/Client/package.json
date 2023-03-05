@@ -1,0 +1,43 @@
+{
+  "name": "tilespad-dist",
+  "version": "3.2.3",
+  "description": "tiles pad dist create packages",
+  "main": "Gulpfile.js",
+  "dependencies": {
+    "del": "^3.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-changed": "^3.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-inject": "^4.3.2",
+    "gulp-jshint": "^2.1.0",
+    "gulp-livereload": "^4.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^0.6.1",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "jshint": "^2.10.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/datacrud/tilespad.git"
+  },
+  "keywords": [
+    "tilespad",
+    "datacrud"
+  ],
+  "author": "datacrud",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/datacrud/tilespad#readme"
+}

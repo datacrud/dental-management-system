@@ -215,3 +215,4 @@ ModelManifest.xml
 /Source/App/**/**/bin
 /Source/App/**/**/dist
 /Source/App/**/**/.vs
+/Source/App/Client/dist
