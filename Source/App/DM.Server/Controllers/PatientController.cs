@@ -40,6 +40,7 @@ namespace DM.AuthServer.Controllers
                     Id = patient.Id,
                     Code = patient.Code,
                     Name = patient.Name,
+                    Phone = patient.Phone,
                     Age = patient.Age,
                     LastVisitingDate = prescription.LastUpdate,
                     TotalPayable = prescription.TotalPayable,
@@ -87,17 +88,17 @@ namespace DM.AuthServer.Controllers
             IEnumerable<PatientGridViewModel> enumerable = null;
             if (model.FilterId == 0)
             {
-                enumerable = gridViewModels.Where(x => x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key));
+                enumerable = gridViewModels.Where(x => x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key) || x.Phone.Contains(key));
             }
 
             else if(model.FilterId == 1)
             {
-                enumerable = gridViewModels.Where(x => (x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key)) && Math.Abs(x.TotalDue) > 0 );
+                enumerable = gridViewModels.Where(x => (x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key) || x.Phone.Contains(key)) && Math.Abs(x.TotalDue) > 0 );
             }
 
             else if (model.FilterId == 2)
             {
-                enumerable = gridViewModels.Where(x => (x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key)) && Math.Abs(x.TotalDue) <= 0);
+                enumerable = gridViewModels.Where(x => (x.Code.ToUpper().Contains(key) || x.Name.ToUpper().Contains(key) || x.Phone.Contains(key)) && Math.Abs(x.TotalDue) <= 0);
             }
 
             return Ok(enumerable);

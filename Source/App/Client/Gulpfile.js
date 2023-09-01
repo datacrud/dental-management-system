@@ -7,8 +7,8 @@ var newVersionNo = "v" + current;
 var footerOldVersion = "Version: " + old;
 var footerNewVersion = "Version: " + current;
 
-var localServerBaseUrl = "http://localhost:62262/";
-var productionServerBaseUrl = "https://api.dental.com/";
+var localServerBaseUrl = "http://localhost:51633/";
+var productionServerBaseUrl = "https://mahmudadental.datacrud.com/";
 
 var templateUrlDevelopmentDirectory = "app/views/";
 var templateUrlProductionDirectory = "dist/" + newVersionNo + "/views/";
@@ -103,8 +103,6 @@ gulp.task("scripts", function (done) {
         .pipe(plumber())
         .pipe(debug())
         .pipe(concat("app-scripts.min.js"))
-        .pipe(replace("./assets/layouts/layout2/img", "./dist/theme/img"))
-        .pipe(replace("./assets/", "./dist/assets/"))
         .pipe(replace(templateUrlDevelopmentDirectory, templateUrlProductionDirectory))
         .pipe(replace(localServerBaseUrl, productionServerBaseUrl))
         .pipe(debug())

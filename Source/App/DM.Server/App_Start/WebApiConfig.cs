@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using DM.AuthServer.Providers;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
@@ -18,7 +19,9 @@ namespace DM.AuthServer
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
 
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.SetCorsPolicyProviderFactory(new CorsPolicyFactory());
+            config.EnableCors();
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();

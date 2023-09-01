@@ -51,6 +51,7 @@
                     cellTemplate: "<a  ng-click=\"detail(row.entity)\" style=\"padding-left: 5px; \" ng-bind=\"row.getProperty(col.field)\"></a>"
                 },
                 { field: "Name", displayName: "Patient Name" },
+                { field: "Phone", displayName: "Phone" },
                 { field: "Age", displayName: "Age" },
                 {
                     field: "LastVisitingDate", displayName: "Last Visiting Date",
