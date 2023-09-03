@@ -85,6 +85,7 @@
 
             $scope.toAddPatientView = function() {
                 patientService.setPatientId(null);
+                patientService.setPageName('new-patient');
                 $state.go("root.patient-create");
             };
 

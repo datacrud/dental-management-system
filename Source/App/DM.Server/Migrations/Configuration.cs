@@ -114,6 +114,7 @@ namespace DM.AuthServer.Migrations
                 new SecurityModels.Resource {Id = "", Name = "Patient", Route = "root.patient", IsPublic = false},
                 new SecurityModels.Resource {Id = "", Name = "Patient Create", Route = "root.patient-create", IsPublic = false},
                 new SecurityModels.Resource {Id = "", Name = "Patient Detail", Route = "root.patient-detail", IsPublic = false},
+                new SecurityModels.Resource {Id = "", Name = "Patient Info", Route = "root.patient-info", IsPublic = false},
                 new SecurityModels.Resource {Id = "", Name = "Patient Service", Route = "root.patient-service", IsPublic = false},
                 new SecurityModels.Resource {Id = "", Name = "Patient Appointment", Route = "root.patient-appointment", IsPublic = false},
                 new SecurityModels.Resource {Id = "", Name = "Patient Report", Route = "root.patient-report", IsPublic = false},

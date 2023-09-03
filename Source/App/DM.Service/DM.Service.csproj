@@ -57,6 +57,7 @@
     <Compile Include="Contacts\IBaseService.cs" />
     <Compile Include="Contacts\IDoctorService.cs" />
     <Compile Include="Contacts\IInventoryService.cs" />
+    <Compile Include="Contacts\IMedicalInfoService.cs" />
     <Compile Include="Contacts\IPatientMedicalServiceService.cs" />
     <Compile Include="Contacts\IPatientCreateService.cs" />
     <Compile Include="Contacts\IPaymentService.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Contacts\IMedicalServiceService.cs" />
     <Compile Include="DoctorService.cs" />
     <Compile Include="InventoryService.cs" />
+    <Compile Include="MedicalInfoService.cs" />
     <Compile Include="PatientMedicalServiceService.cs" />
     <Compile Include="PatientCreateService.cs" />
     <Compile Include="PaymentService.cs" />

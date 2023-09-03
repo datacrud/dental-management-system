@@ -13,7 +13,7 @@ angular.module("dentalApp")
                     responseToState = { ToState: "root.login", IsLoggedIn: false, Broadcast: "loggedOut" };
                 } else if (user !== null) {
                     if (user.RoleNames[0] === "SystemAdmin" || user.RoleNames[0] === "Inventory" || user.RoleNames[0] === "Admin" || user.RoleNames[0] === "Manager") {
-                        responseToState.ToState = "root.dashboard";
+                        responseToState.ToState = "root.patient";
 
                     } else if (user.RoleNames[0] === "Doctor" || user.RoleNames[0] === "Compounder" || user.RoleNames[0] === "Patient") {
                         responseToState.ToState = "root.patient";
@@ -45,7 +45,7 @@ angular.module("dentalApp")
             var self = this;            
 
             self.url = "http://localhost:51633/";
-            //self.url = "http://dental.securebitlink.com/";
+            //self.url = "http://mahmudadental.datacrud.com/";
 
             self.urls = [];
             self.urls.baseUrl = self.url;
@@ -64,6 +64,7 @@ angular.module("dentalApp")
             self.urls.DoctorUrl = self.urls.baseApi + "Doctors";
             self.urls.InventoryUrl = self.urls.baseApi + "Inventories";
             self.urls.InventoryReportUrl = self.urls.baseApi + "InventoryReports";
+            self.urls.MedicalInfoUrl = self.urls.baseApi + "MedicalInfo";
             self.urls.MedicalServiceUrl = self.urls.baseApi + "MedicalServices";
             self.urls.PatientUrl = self.urls.baseApi + "Patients";
             self.urls.PatientCreateUrl = self.urls.baseApi + "PatientCreate";

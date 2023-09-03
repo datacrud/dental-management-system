@@ -1,14 +1,22 @@
 ﻿angular.module("dentalApp")
     .controller("PatientCreateController", [
-        "$scope", "$http",  "PatientService", "$state", "UrlService",
-        function ($scope, $http, PatientService, $state, urlService) {
+        "$scope", "$http", "PatientService", "$state", "UrlService", "toaster",
+        function ($scope, $http, PatientService, $state, urlService, toaster) {
             "use strict";
 
             $scope.init = function() {
-                $scope.patient = { Name: "", Age: "", Phone: "", Email: "", Address: "", Created: new Date().toLocaleString(), LastUpdate: new Date().toLocaleString() };
-                $scope.patientMedicalService = { PatientId: "", PrescriptionId: "", MedicalServiceId: "", Created: new Date().toLocaleString(), LastUpdate: new Date().toLocaleString() };
-                $scope.service = { Charge: 0, DiscountPercent: 0, DiscountAmount: 0, TotalPayable: 0, TotalPaid: 0, TotalDue: 0 };
+                $scope.patient = { Name: "", Age: "", Gender: "", Phone: "", Email: "", Address: "", Note: "", Created: new Date().toLocaleString(), LastUpdate: new Date().toLocaleString() };
+                $scope.patientMedicalService = { PatientId: "", PrescriptionId: "", MedicalServiceId: "", Quantity: 1, Created: new Date().toLocaleString(), LastUpdate: new Date().toLocaleString() };
+                $scope.service = { Charge: 0, DiscountPercent: 0, DiscountAmount: 0, FixedDiscount: 0, TotalDiscountAmount: 0, TotalPayable: 0, TotalPaid: 0, TotalDue: 0 };
                 $scope.selection = [];
+
+                $scope.gender = [
+                    "Male",
+                    "Female",
+                    "Others"
+                ];
+
+                $scope.pageName = 'new-patient';
             };
             $scope.init();
 
@@ -39,6 +47,7 @@
                     $scope.patientPrescription = response.data;
                     $scope.patientMedicalService.PrescriptionId = $scope.patientPrescription.Id;
                     $scope.service.DiscountPercent = $scope.patientPrescription.DiscountPercent;
+                    $scope.service.FixedDiscount = $scope.patientPrescription.FixedDiscount;
 
                     $scope.service.TotalPaid = $scope.patientPrescription.TotalPaid;
                     $scope.service.TotalDue = $scope.patientPrescription.TotalDue;
@@ -75,53 +84,74 @@
                     if (response.data) {
                         $scope.getPatient(response.data);
                         $scope.init();
+
+                        $scope.pageName = 'add-services';
                     }
                 }, function(error) {
                     console.log(error);
-                    alert("Patient create faild! Plese try again");
+                    toaster.pop("error", "Patient create faild! Plese try again");
                 });
             };
 
             $scope.calculateDiscount = function() {
                 if ($scope.service.DiscountPercent > 100 || $scope.service.DiscountPercent < 0) {
-                    alert("Hey, Your are trying to give an impossible discount to this patient. Discount must be between 0% to 100 %");
+                    toaster.pop('warning', "Hey, Your are trying to give an impossible discount to this patient. Discount must be between 0% to 100 %");
                 } else {
-                    $scope.service.DiscountAmount = parseFloat(parseFloat($scope.service.Charge) * (parseFloat($scope.service.DiscountPercent) / 100)).toFixed(2);
-                    $scope.service.TotalPayable = parseFloat(parseFloat($scope.service.Charge) - parseFloat($scope.service.DiscountAmount)).toFixed(2);
-                    $scope.service.TotalDue = parseFloat(parseFloat($scope.service.TotalPayable) - parseFloat($scope.service.TotalPaid)).toFixed(2);
+                    var dp = $scope.service.DiscountPercent == "" ? 0 : parseFloat($scope.service.DiscountPercent);
+                    $scope.service.DiscountAmount = parseFloat(parseFloat($scope.service.Charge) * ( dp / 100)).toFixed(2);                    
                 }
+
+                var fd = $scope.service.FixedDiscount == "" ? 0 : parseFloat($scope.service.FixedDiscount);
+                $scope.service.TotalDiscountAmount = parseFloat(parseFloat($scope.service.DiscountAmount) + fd).toFixed(2);
+
+                $scope.service.TotalPayable = parseFloat(parseFloat($scope.service.Charge) - parseFloat($scope.service.TotalDiscountAmount)).toFixed(2);
+                $scope.service.TotalDue = parseFloat(parseFloat($scope.service.TotalPayable) - parseFloat($scope.service.TotalPaid)).toFixed(2);
             };
-                       
-            $scope.patientMedicalServices = [];
-            $scope.toggleSelection = function(medicalService) {
-                var idx = $scope.selection.indexOf(medicalService);
 
-                if (idx > -1) {
-                    $scope.selection.splice(idx, 1);
+            $scope.calculateCharge = function (index) {
+                $scope.medicalServices[index].TotalCharge = parseInt($scope.medicalServices[index].Quantity) * parseInt($scope.medicalServices[index].Charge);
 
-                    for (var i = 0; i < $scope.patientMedicalServices.length; i++) {
-                        if ($scope.patientMedicalServices[i].MedicalServiceId == medicalService.Id) {
-                            $scope.patientMedicalServices.splice(i, 1);
-                        }                            
-                    }                    
-                    $scope.service.Charge = parseFloat(parseFloat($scope.service.Charge) - parseFloat(medicalService.Charge)).toFixed(2);
-                    $scope.service.TotalPayable = $scope.service.Charge;                    
-                    $scope.calculateDiscount();
-                }
-                else {
-                    $scope.selection.push(medicalService);
-                    
-                    $scope.service.Charge = parseFloat(parseFloat($scope.service.Charge) + parseFloat(medicalService.Charge)).toFixed(2);
-                    $scope.service.TotalPayable = $scope.service.Charge;
-                    $scope.calculateDiscount();
+                $scope.calculateTotalCharge();
+            };
+
+           
+            $scope.calculateTotalCharge = function () {
+                let totalCharge = 0;
+                $scope.patientMedicalServices = [];
+
+                for (let i = 0; i < $scope.selection.length; i++) {
+
+                    let medicalService = $scope.selection[i];
+
+                    totalCharge += medicalService.TotalCharge;
 
                     var service = angular.copy($scope.patientMedicalService);
                     service.MedicalServiceId = medicalService.Id;
+                    service.Quantity = medicalService.Quantity;
                     service.Created = new Date().toLocaleString();
-                    service.LastUpdate = new Date().toLocaleString();                    
+                    service.LastUpdate = new Date().toLocaleString();
                     $scope.patientMedicalServices.push(service);
                 }
-                $scope.service.TotalDue = parseFloat($scope.service.TotalPayable) - parseFloat($scope.service.TotalPaid);
+
+                $scope.service.Charge = parseFloat(totalCharge).toFixed(2);
+                $scope.service.TotalPayable = $scope.service.Charge;
+
+                $scope.calculateDiscount();
+
+                $scope.service.TotalDue = parseFloat($scope.service.TotalPayable) - parseFloat($scope.service.TotalPaid);                
+            }
+                       
+            $scope.toggleSelection = function(medicalService) {
+                var idx = $scope.selection.indexOf(medicalService);
+                
+                if (idx > -1) {
+                    $scope.selection.splice(idx, 1);
+
+                } else {
+                    $scope.selection.push(medicalService);
+                }
+
+                $scope.calculateTotalCharge();                
             };
 
             $scope.loadPatientMedicalServices = function(id) {
@@ -130,8 +160,14 @@
                     var patientMedicalServices = response.data;
 
                     for (var j = 0; j < patientMedicalServices.length; j++) {
+                        var pms = patientMedicalServices[j];
                         for (var i = 0; i < $scope.medicalServices.length; i++) {
-                            if (patientMedicalServices[j].MedicalServiceId == $scope.medicalServices[i].Id) {
+
+                            if (pms.MedicalServiceId == $scope.medicalServices[i].Id) {
+
+                                $scope.medicalServices[i].Quantity = pms.Quantity;
+                                $scope.medicalServices[i].TotalCharge = parseInt($scope.medicalServices[i].Quantity) * parseInt($scope.medicalServices[i].Charge);
+
                                 $scope.toggleSelection($scope.medicalServices[i]);
                                 break;
                             }
@@ -147,6 +183,7 @@
                 $scope.patientPrescription.TotalCharge = $scope.service.Charge;
                 $scope.patientPrescription.DiscountPercent = $scope.service.DiscountPercent;
                 $scope.patientPrescription.DiscountAmount = $scope.service.DiscountAmount;
+                $scope.patientPrescription.FixedDiscount = $scope.service.FixedDiscount;
                 $scope.patientPrescription.TotalPayable = $scope.service.TotalPayable;
                 $scope.patientPrescription.TotalPaid = $scope.service.TotalPaid;
                 $scope.patientPrescription.TotalDue = parseFloat($scope.service.TotalPayable) - parseFloat($scope.service.TotalPaid);
@@ -154,6 +191,8 @@
 
                 $http.put(urlService.PrescriptionUrl + "/Update", JSON.stringify($scope.patientPrescription)).then(function(response) {
                     console.log(response);
+
+                    $scope.backToPatientDetail();
                 }, function(error) {
                     console.log(error);
                 });
@@ -163,7 +202,7 @@
                 $http.post(urlService.PatientMedicalServiceUrl + "/CreateList", JSON.stringify($scope.patientMedicalServices)).then(function(response) {
                     console.log(response);
                     $scope.updatePrescription();
-                    alert("Service added successfully");
+                    //alert("Service added successfully");
                 }, function(error) {
                     console.log(error);
                 });
@@ -199,8 +238,9 @@
             //    });
             //}
 
-            $scope.loadPatientId = function() {
+            $scope.loadPatientId = function () {
                 $scope.patientId = PatientService.getPatientId();
+                $scope.pageName = PatientService.getPageName();
 
                 if ($scope.patientId !== null) {
                     $scope.getPatient($scope.patientId);
@@ -214,6 +254,10 @@
                 } else {
                     $state.go("root.patient-detail", { patientId: $scope.patientSuccess.Code });
                 }
+            };
+
+            $scope.backToPatientDetail = function () {
+                $state.go("root.patient-detail", { patientId: $scope.patientSuccess.Code });
             };
         }
     ]);

@@ -1,4 +1,4 @@
-angular.module("dentalApp", ["ui.router", "ngGrid", "ui.bootstrap", "checklist-model", "cgBusy"])
+angular.module("dentalApp", ["ui.router", "ngGrid", "ui.bootstrap", "checklist-model", "cgBusy", "toaster", "ngAnimate"])
     .run([
         "$rootScope", "$state", "$stateParams", "AuthService",
         function ($rootScope, $state, $stateParams, authService) {

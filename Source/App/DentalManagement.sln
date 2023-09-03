@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Service", "03 Service", 
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Client", "Client\", "{3ECDF50D-1A84-4540-9705-E317EEDD4709}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_62262"
 		Debug.AspNetCompiler.PhysicalPath = "Client\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62262\"

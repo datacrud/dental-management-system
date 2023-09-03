@@ -29,7 +29,8 @@ namespace DM.AuthServer.Controllers
         [Route("GetByPrescriptionId")]
         public IHttpActionResult GetByPrescriptionId(string request)
         {
-            return Ok(_patientMedicalServiceService.GetByPrescriptionId(Guid.Parse(request)));
+            var response = _patientMedicalServiceService.GetByPrescriptionId(Guid.Parse(request));
+            return Ok(response);
         }
 
         [HttpPost]

@@ -1,11 +1,18 @@
 ﻿angular.module("dentalApp")
     .controller("PatientDetailControlller", [
-        "$scope", "$http", "UrlService", "$stateParams", "PatientService", "$state", "$uibModal", "$log",
-        function ($scope, $http, urlService, $stateParams, patientService, $state, $uibModal, $log) {
+        "$scope", "$http", "UrlService", "$stateParams", "PatientService", "$state", "$uibModal", "$log", "toaster",
+        function ($scope, $http, urlService, $stateParams, patientService, $state, $uibModal, $log, toaster) {
             "use strict";
 
             $scope.init = function() {
                 $scope.payment = { PrescriptionId: "", Amount: 0, Comment: "", Created: new Date().toLocaleString(), LastUpdate: new Date().toLocaleString() };
+                $scope.gender = [
+                    "Male",
+                    "Female",
+                    "Others"
+                ];
+
+                $scope.pageName = "services";
             };
             $scope.init();
 
@@ -20,6 +27,8 @@
                     console.log(response);
                     $scope.patientInfo = response.data;
                     $scope.loadPatientServices($scope.patientInfo.Id);
+                    $scope.getMedicalInfos($scope.patientInfo.Id);
+                    $scope.getPatientHistory($scope.patientInfo.Id);
                 }, function(error) {
                     console.log(error);
                     $scope.patientInfo = [];
@@ -27,14 +36,67 @@
             };
             $scope.loadPatientInfo();
 
+
+            $scope.getMedicalInfos = function (patientId) {
+
+                $scope.patientMedicalConditions = []
+
+                $http.get(urlService.MedicalInfoUrl + "/GetPatientMedicalInfos", { params: { patientId: patientId } }).success(function (response) {
+                    console.log(response);
+                    $scope.infos = response;
+
+                    for (var i = 0; i < $scope.infos.length; i++) {
+                        var info = $scope.infos[i];
+                        if (info.IsChecked) {
+                            $scope.patientMedicalConditions.push(info.Name);
+                        }
+                    }
+                }).error(function (error) {
+                    console.log(error);
+                });
+            };
+
+            $scope.savePatientMedicalInfo = function () {
+
+                var patientMedicalInfos = [];
+
+                for (var i = 0; i < $scope.infos.length; i++) {
+                    var info = $scope.infos[i];
+                    if (info.IsChecked) {
+                        patientMedicalInfos.push({ PatientId: $scope.patientInfo.Id, MedicalInfoId: info.Id })
+                    }
+                }
+
+                $http.post(urlService.MedicalInfoUrl + "/SavePatientMedicalInfos", JSON.stringify(patientMedicalInfos)).success(function (response) {
+                    console.log(response);
+                    $scope.infos = response;
+
+                    $scope.getMedicalInfos($scope.patientInfo.Id);
+                }).error(function (error) {
+                    console.log(error);
+                });
+            };
+
+
+            $scope.patientHistories = []
+            $scope.getPatientHistory = function (patientId) {                
+                $http.get(urlService.PrescriptionUrl + "/GetPatientHistory", { params: { patientId: patientId } }).success(function (response) {
+                    console.log(response);
+                    $scope.patientHistories = response;                    
+                }).error(function (error) {
+                    console.log(error);
+                });
+            };
+            
+
             $scope.update = function(patientInfo) {
                 $http.put(urlService.PatientCreateUrl + "/Update", JSON.stringify(patientInfo)).then(function(response) {
                     console.log(response);
-                    alert("Patient Info Successfully Updated");
+                    toaster.pop("success", "Patient Info Successfully Updated");
                     $scope.loadPatientInfo();
                 }, function(error) {
                     console.log((error));
-                    alert("Patient Info Update Failed");
+                    toaster.pop("error","Patient Info Update Failed");
                     $scope.loadPatientInfo();
                 });
             };
@@ -82,7 +144,7 @@
                 $scope.payment.PrescriptionId = $scope.patientPrescription.Id;
 
                 if ($scope.payment.Amount > $scope.patientPrescription.TotalDue) {
-                    alert("You are trying to paid more then due amount");
+                    toaster.pop("warning", "You are trying to paid more then due amount");
                 } else {
                     $http.post(urlService.PaymentUrl + "/Create", JSON.stringify($scope.payment)).then(function(response) {
                         console.log(response);
@@ -160,6 +222,7 @@
 
             $scope.addMoreService = function() {
                 patientService.setPatientId($scope.patientInfo.Id);
+                patientService.setPageName('add-services');
                 $state.go("root.patient-create");
             };
 
@@ -175,10 +238,10 @@
                     $http.post(urlService.PrescriptionUrl + "/Create", JSON.stringify(prescription)).then(function(response) {
                         console.log(response);
                         $scope.loadPatientInfo();
-                        alert("This bill closed successfully. A new bill has been auto generated for this patient.");
+                        toaster.pop("success","This bill closed successfully. A new bill has been auto generated for this patient.");
                     }, function(error) {
                         console.log(error);
-                        alert("Patient bill close failed! Please, try again.");
+                        toaster.pop("error","Patient bill close failed! Please, try again.");
                     });
 
                 }, function(error) {
@@ -189,7 +252,7 @@
             $scope.newBill = function() {
 
                 if ($scope.patientPrescription.TotalDue > 0) {
-                    alert("You can not close this current bill to open a new bill due to due payment.\n Please clear the due payment first.");
+                    toaster.pop("error","You can not close this current bill to open a new bill due to due payment.\n Please clear the due payment first.");
                 } else {
 
                     var isConfirm = confirm("Are you sure, do you realy want to close this active bill now?");

@@ -25,7 +25,8 @@ namespace DM.Models
         public double DiscountPercent { get; set; }
 
         public double DiscountAmount { get; set; }
-
+        public double FixedDiscount { get; set; } = 0;
+        public double TotalDiscountAmount => DiscountAmount + FixedDiscount;
         public double TotalPayable { get; set; }
 
         public double TotalPaid { get; set; }

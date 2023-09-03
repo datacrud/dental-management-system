@@ -16,25 +16,30 @@ namespace DM.Models
             Configuration.ProxyCreationEnabled = false;            
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
-
+      
         public DbSet<Product> Products { set; get; }
         public DbSet<Status> Statuses { set; get; }
         public DbSet<Inventory> Inventories { set; get; }         
 
+        public DbSet<MedicalInfo> MedicalInfos { set; get; }
         public DbSet<MedicalService> MedicalServices { set; get; }
         public DbSet<Patient> Patients { set; get; }
         public DbSet<Prescription> Prescriptions { set; get; }         
         public DbSet<PatientMedicalService> PatientMedicalServices { set; get; } 
+        public DbSet<PatientMedicalInfo> PatientMedicalInfos { set; get; } 
 
         public DbSet<Payment>  Payments { set; get; }
 
         public DbSet<Doctor> Doctors { get; set; } 
-        public DbSet<Appointment> Appointments { get; set; } 
+        public DbSet<Appointment> Appointments { get; set; }
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+        }
 
     }
 }

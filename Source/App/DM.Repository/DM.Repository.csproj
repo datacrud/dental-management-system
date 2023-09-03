@@ -57,6 +57,8 @@
     <Compile Include="Contacts\IBaseRepository.cs" />
     <Compile Include="Contacts\IDoctorRepository.cs" />
     <Compile Include="Contacts\IInventoryRepository.cs" />
+    <Compile Include="Contacts\IMedicalInfoRepository.cs" />
+    <Compile Include="Contacts\IPatientMedicalInfoRepository.cs" />
     <Compile Include="Contacts\IPatientMedicalServiceRepository.cs" />
     <Compile Include="Contacts\IPatientCreateRepository.cs" />
     <Compile Include="Contacts\IPaymentRepository.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="DoctorRepository.cs" />
     <Compile Include="InventoryRepository.cs" />
     <Compile Include="Contacts\IMedicalServiceRepository.cs" />
+    <Compile Include="MedicalInfoRepository.cs" />
+    <Compile Include="PatientMedicalInfoRepository.cs" />
     <Compile Include="PatientMedicalServiceRepository.cs" />
     <Compile Include="PatientCreateRepository.cs" />
     <Compile Include="PaymentRepository.cs" />

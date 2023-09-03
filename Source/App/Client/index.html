@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Dental Management System</title>
+    <title>Dental Clinic</title>
 
     <link href="./dist/theme/css/theme-style.min.css" rel="stylesheet" />
 
@@ -15,12 +15,13 @@
 
 </head>
 <body>
-
+    <toaster-container toaster-options="{'time-out': 7000, 'close-html':'<button>Close</button>', 'showCloseButton':true}">
+    </toaster-container>
 
     <header ng-include="'dist/v1.0.0/views/nav.html'"></header>
 
 
-    <div class="container">
+    <!--<div class="container">
         <div class="alertStyle alert-block text-center fade out" ng-class="{in: alert.isAlert}">
             <span ng-hide="alert.autoHide">
                 <uib-alert type="{{alert.type}}" close="alert.close()">{{alert.msg}} </uib-alert>
@@ -29,25 +30,28 @@
                 <uib-alert type="{{alert.type}}">{{alert.msg}}</uib-alert>
             </span>
         </div>
-    </div>
+    </div>-->
 
     <div ui-view class="container-fluid slide"></div>
+
+    iv
+    <f
 
     <footer ng-include="'dist/v1.0.0/views/footer.html'"></footer>
 
 
     <script src="./dist/theme/js/theme-scripts.min.js"></script>
-    
+
 
     <script src="./dist/vendors/js/vendor-scripts.min.js"></script>
 
     <script src="./dist/v1.0.0/scripts/app-scripts.min.js"></script>
-    
-    
+
+
     <!-- app scripts end -->
 
     <script>
-        $(document).on('click', function() {
+        $(document).on('click', function () {
             $('.collapse').collapse('hide');
         });
     </script>

@@ -56,6 +56,7 @@
     <Compile Include="DentalDbContext.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="MedicalInfo.cs" />
     <Compile Include="Migrations\201512281828016_InitialCreate.cs" />
     <Compile Include="Migrations\201512281828016_InitialCreate.Designer.cs">
       <DependentUpon>201512281828016_InitialCreate.cs</DependentUpon>
@@ -128,8 +129,33 @@
     <Compile Include="Migrations\201601201928306_AppointmentModelAnnotationAdded.Designer.cs">
       <DependentUpon>201601201928306_AppointmentModelAnnotationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309010450510_MedicalInfo_Entity_Added.cs" />
+    <Compile Include="Migrations\202309010450510_MedicalInfo_Entity_Added.designer.cs">
+      <DependentUpon>202309010450510_MedicalInfo_Entity_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309010557562_Patient-Entity_Updated.cs" />
+    <Compile Include="Migrations\202309010557562_Patient-Entity_Updated.designer.cs">
+      <DependentUpon>202309010557562_Patient-Entity_Updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309011231090_PatientMedicalService_Entity_Updated.cs" />
+    <Compile Include="Migrations\202309011231090_PatientMedicalService_Entity_Updated.designer.cs">
+      <DependentUpon>202309011231090_PatientMedicalService_Entity_Updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309011510064_Prescription_Entity_Updated.cs" />
+    <Compile Include="Migrations\202309011510064_Prescription_Entity_Updated.designer.cs">
+      <DependentUpon>202309011510064_Prescription_Entity_Updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309011808374_PatientMedicalInfo_Entity_Added.cs" />
+    <Compile Include="Migrations\202309011808374_PatientMedicalInfo_Entity_Added.designer.cs">
+      <DependentUpon>202309011808374_PatientMedicalInfo_Entity_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309011822536_PatientMedicalInfo_Entity_Updated.cs" />
+    <Compile Include="Migrations\202309011822536_PatientMedicalInfo_Entity_Updated.designer.cs">
+      <DependentUpon>202309011822536_PatientMedicalInfo_Entity_Updated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Patient.cs" />
+    <Compile Include="PatientMedicalInfo.cs" />
     <Compile Include="PatientMedicalService.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Prescription.cs" />
@@ -196,6 +222,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601201928306_AppointmentModelAnnotationAdded.resx">
       <DependentUpon>201601201928306_AppointmentModelAnnotationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309010450510_MedicalInfo_Entity_Added.resx">
+      <DependentUpon>202309010450510_MedicalInfo_Entity_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309010557562_Patient-Entity_Updated.resx">
+      <DependentUpon>202309010557562_Patient-Entity_Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309011231090_PatientMedicalService_Entity_Updated.resx">
+      <DependentUpon>202309011231090_PatientMedicalService_Entity_Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309011510064_Prescription_Entity_Updated.resx">
+      <DependentUpon>202309011510064_Prescription_Entity_Updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309011808374_PatientMedicalInfo_Entity_Added.resx">
+      <DependentUpon>202309011808374_PatientMedicalInfo_Entity_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309011822536_PatientMedicalInfo_Entity_Updated.resx">
+      <DependentUpon>202309011822536_PatientMedicalInfo_Entity_Updated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

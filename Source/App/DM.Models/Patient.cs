@@ -33,14 +33,25 @@ namespace DM.Models
         [DataType(DataType.Text)]
         public string Address { get; set; }
 
+        public string Gender { get; set; }
+
+        public string Note { get; set; }
+
         [Required]
         public DateTime Created { get; set; }
 
         [Required]
-        public DateTime LastUpdate { get; set; }
-
+        public DateTime LastUpdate { get; set; }      
 
         public ICollection<Prescription> Prescriptions { set; get; } 
         //public ICollection<PatientService> PatientServices { get; set; }
+    }
+
+
+    public enum Gender
+    {
+        Male =1,
+        Female = 2,
+        Others = 3
     }
 }

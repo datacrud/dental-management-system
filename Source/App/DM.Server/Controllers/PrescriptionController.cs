@@ -68,5 +68,44 @@ namespace DM.AuthServer.Controllers
             return Ok(Guid.Parse(request));
         }
 
+
+        [HttpGet]
+        [Route("GetPatientHistory")]
+        public IHttpActionResult GetPatientHistory(Guid patientId)
+        {
+            var patientHistories = _prescriptionService.GetPatientHistory(patientId);
+
+            var histories = patientHistories
+                .OrderByDescending(x=> x.Created)
+                .Select(x => new
+            {
+                PrescriptionId = x.Id,
+                x.PatientId,
+                PatientName = x.Patient.Name,
+                BillNo = x.Code,
+                Created = x.Created.ToString("yyyy-MM-dd"),
+
+                x.TotalCharge,
+                x.DiscountPercent,
+                x.DiscountAmount,
+                x.FixedDiscount,
+                x.TotalDiscountAmount,
+                x.TotalPaid,
+                x.TotalDue,
+
+                StatusName = x.Status.Name,
+
+                PatientMedicalServices = x.PatientMedicalServices.Select(y => new
+                {
+                    MedicalServiceName = y.MedicalService.Name,
+                    y.Quantity
+                }).ToList(),
+
+                Payments = x.Payments.Select(y => new { Created = y.Created.ToString("yyyy-MM-dd"), y.Amount }).ToList(),
+
+            }).ToList();
+
+            return Ok(histories);
+        }
     }
 }

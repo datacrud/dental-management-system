@@ -32,6 +32,15 @@
                         }
                     }
                 })
+                .state("root.patient-info", {
+                    url: "/patient/info",
+                    views: {
+                        "": {
+                            templateUrl: "app/views/patient/patient-info.tpl.html",
+                            controller: "PatientInfoControlller"
+                        }
+                    }
+                })
                 .state("root.patient-service", {
                     url: "/patient/service",
                     views: {

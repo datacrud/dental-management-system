@@ -27,7 +27,13 @@ namespace DM.AuthServer.Controllers
             List<PatientMedicalService> patientMedicalServices = _patientMedicalServiceService.GetByPrescriptionId(Guid.Parse(request));
             List<MedicalService> medicalServices = patientMedicalServices.Select(service => _medicalServiceService.GetById(service.MedicalServiceId)).ToList();
 
+            medicalServices.ForEach(x =>
+            {
+                x.Quantity = patientMedicalServices.First(y => y.MedicalServiceId == x.Id).Quantity;
+            });
+
             return Ok(medicalServices.OrderBy(x=> x.Name));
         }
+
     }
 }

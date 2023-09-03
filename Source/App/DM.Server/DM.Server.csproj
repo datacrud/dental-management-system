@@ -216,6 +216,7 @@
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\InventoryReportController.cs" />
+    <Compile Include="Controllers\MedicalInfoController.cs" />
     <Compile Include="Controllers\MedicalServiceController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PatientCreateController.cs" />

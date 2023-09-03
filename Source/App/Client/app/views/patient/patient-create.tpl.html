@@ -1,63 +1,80 @@
-﻿<div class="row">
-    
-    <div>
-        <a ng-href="#/patient" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></a>
-    </div>
+﻿<style>
+    .table-responsive {
+        max-height: calc(100vh - 555px);
+    }
+</style>
 
-    <div class="col col-xs-12 col-sm-6 col-md-5 col-lg-5">
+
+<div class="row">
+
+    <div class="col-sm-6 col-sm-offset-3" ng-if="pageName == 'new-patient'">
         <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Add Patient</h3>
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="panel-title">New Patient</h3></div>
+                    <div class="col-sm-6 text-right">
+                        <button ui-sref="root.patient" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Back"><span class="glyphicon glyphicon-repeat"></span></button>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" ng-submit="addPatient()">
 
-                    <!--<div class="form-group">
-                        <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Patient Identity :</label>
-                        <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control" ng-model="patient.Code"/>
-                        </div>
-                    </div>-->
-
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Name :</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control text-capitalize" ng-model="patient.Name" required="required"/>
+                            <input type="text" class="form-control text-capitalize" ng-model="patient.Name" required="required" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Age :</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control" ng-model="patient.Age" required="required"/>
+                            <input type="text" class="form-control" ng-model="patient.Age" required="required" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Gender :</label>
+                        <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                            <select class="form-control" ng-model="patient.Gender" ng-options="o for o in gender">
+                            </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Phone :</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control" ng-model="patient.Phone" required="required"/>
+                            <input type="text" class="form-control" ng-model="patient.Phone" required="required" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Email :</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control" ng-model="patient.Email"/>
+                            <input type="text" class="form-control" ng-model="patient.Email" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Address :</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <input type="text" class="form-control" ng-model="patient.Address"/>
+                            <textarea class="form-control" ng-model="patient.Address"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">Note :</label>
+                        <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                            <textarea class="form-control" ng-model="patient.Note"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">&nbsp;</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <button ng-show="!isUpdateMode" type="submit" class="btn btn-floating btn-danger" >Save</button>
+                            <button ng-show="!isUpdateMode" type="submit" class="btn btn-floating btn-danger">Save</button>
                             <button ng-show="isUpdateMode" type="button" class="btn btn-floating btn-success" ng-click="addPatient()">Update</button>
                             {{prescriptionId}}
                         </div>
@@ -68,10 +85,15 @@
         </div>
     </div>
 
-    <div class="col col-xs-12 col-sm-6 col-md-7 col-lg-7">
+    <div class="col-sm-12" ng-if="pageName == 'add-services'">
         <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Add Services</h3>
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="panel-title">Add Services</h3></div>
+                    <div class="col-sm-6 text-right">
+                        <button ng-click="backToPatientDetail()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Back"><span class="glyphicon glyphicon-repeat"></span></button>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
@@ -97,67 +119,98 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4"><strong>Patient ID: </strong> {{patientSuccess.Code}}
+                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <strong>Patient ID: </strong> {{patientSuccess.Code}}
                         </div>
-                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4"><strong>Name: </strong> {{patientSuccess.Name}}
+                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <strong>Name: </strong> {{patientSuccess.Name}}
                         </div>
-                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4"><strong>Age: </strong> {{patientSuccess.Age}}
+                        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <strong>Age: </strong> {{patientSuccess.Age}}
                         </div>
                     </div>
 
+                    <div class="table-responsive">
+                        <table class="table table-striped table-responsive table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Charge</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="s in medicalServices">
+                                    <td><input type="checkbox" class="checkbox" ng-click="toggleSelection(s)" ng-checked="selection.indexOf(s) > -1" /></td>
+                                    <td>{{s.Name}}</td>
+                                    <td>{{s.Charge}}</td>
+                                    <td style="width:100px"><input class="form-control" type="number" ng-change="calculateCharge($index)" ng-model="medicalServices[$index].Quantity"/></td>
+                                    <td>{{s.TotalCharge}}</td>
+                                </tr>                                
 
-                    <table class="table table-striped table-responsive table-hover table-bordered">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Charge</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="s in medicalServices">
-                            <td><input type="checkbox" class="checkbox" ng-click="toggleSelection(s)" ng-checked="selection.indexOf(s) > -1"/></td>
-                            <td>{{s.Name}}</td>
-                            <td>{{s.Charge}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Discount (%)</td>
-                            <td class="col col col-lg-4"><input type="text" class="form-control" placeholder="%" ng-model="service.DiscountPercent" ng-change="calculateDiscount()" maxlength="3"/></td>
-                        </tr>
+                            </tbody>
+                        </table>
 
-                        </tbody>
-                    </table>
-                    <br/>
-                    <table class="table table-condensed">
-                        <tbody>
-                        <tr>
-                            <th>Service Change :</th>
-                            <th>{{service.Charge}} Tk</th>
-                        </tr>
-                        <tr>
-                            <th>Discount ({{service.DiscountPercent}} %) :</th>
-                            <th>{{service.DiscountAmount}} Tk</th>
-                        </tr>
-                        <tr>
-                            <th>Total Payable :</th>
-                            <th class="text-info">{{service.TotalPayable}} Tk</th>
-                        </tr>
-                        <tr>
-                            <th>Total Paid :</th>
-                            <th>{{service.TotalPaid}} Tk</th>
-                        </tr>
-                        <tr>
-                            <th>Total Due :</th>
-                            <th class="text-danger">{{service.TotalDue}} Tk</th>
-                        </tr>
-                        </tbody>
-                    </table>
+                    </div>
 
+                    <br />
+                    <div class="col-sm-6">
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>Discount (%)</td>
+                                    <td class="col col col-lg-4"><input type="text" class="form-control" placeholder="%" ng-model="service.DiscountPercent" ng-change="calculateDiscount()" maxlength="3" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Discount (%) Amount</td>
+                                    <td class="col col col-lg-4">{{service.DiscountAmount}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fixed Discount</td>
+                                    <td class="col col col-lg-4"><input type="text" class="form-control" placeholder="Amount" ng-model="service.FixedDiscount" ng-change="calculateDiscount()" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Total Discount Amount</th>
+                                    <td class="col col col-lg-4">{{service.TotalDiscountAmount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>                       
+                    </div>
+                    <div class="col-sm-6">
+                        <table class="table table-condensed">
+                            <tbody>
+
+                                <tr>
+                                    <th>Total Service Charge :</th>
+                                    <th>{{service.Charge}} Tk</th>
+                                </tr>
+                                <tr>
+                                    <th>Discount :</th>
+                                    <th>{{service.TotalDiscountAmount}} Tk</th>
+                                </tr>
+                                <tr>
+                                    <th>Total Payable :</th>
+                                    <th class="text-info">{{service.TotalPayable}} Tk</th>
+                                </tr>
+                                <tr>
+                                    <th>Total Paid :</th>
+                                    <th>{{service.TotalPaid}} Tk</th>
+                                </tr>
+                                <tr>
+                                    <th>Total Due :</th>
+                                    <th class="text-danger">{{service.TotalDue}} Tk</th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    
                     <div class="form-group">
                         <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <button class="btn btn-danger" ng-click="savePatientMedicalService()">Save</button>
-                            <button class="btn btn-success" ng-click="addPayment()">Add Payment</button>
+                            <!--<button class="btn btn-success" ng-click="addPayment()">Add Payment</button>-->
                         </div>
                     </div>
 
@@ -185,7 +238,7 @@
                         <label class="col col-xs-6 col-sm-5 col-md-5 col-lg-5">Total Due :</label>
                         <div class="col col-xs-6 col-sm-6 col-md-6 col-lg-6"><strong>{{service.TotalDue}} Tk</strong></div>
                     </div>-->
-                    
+
                 </form>
             </div>
             <div class="panel-footer"></div>

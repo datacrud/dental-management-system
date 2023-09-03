@@ -19,11 +19,17 @@ namespace DM.Models
         [Required]
         public Guid MedicalServiceId { get; set; }
 
+        public int Quantity { get; set; } = 1;
+
+        
+        
         [Required]
         public DateTime Created { get; set; }
 
         [Required]
         public DateTime LastUpdate { get; set; }
+
+
 
 
         [ForeignKey("PatientId")]

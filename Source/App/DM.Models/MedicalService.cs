@@ -32,6 +32,8 @@ namespace DM.Models
         public DateTime LastUpdate { get; set; }
 
 
-        //public virtual ICollection<PatientMedicalService> PatientMedicalService { get; set; } 
+        [NotMapped] public int Quantity { get; set; } = 1;
+        [NotMapped] public int TotalCharge { get => Convert.ToInt32(Charge) + Quantity; set => TotalCharge = value; }
+
     }
 }

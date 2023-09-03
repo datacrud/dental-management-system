@@ -42,6 +42,7 @@ namespace DM.AuthServer.Controllers
                     Name = patient.Name,
                     Phone = patient.Phone,
                     Age = patient.Age,
+                    Gender = patient.Gender,
                     LastVisitingDate = prescription.LastUpdate,
                     TotalPayable = prescription.TotalPayable,
                     TotalPaid = prescription.TotalPaid,

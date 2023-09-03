@@ -1,0 +1,82 @@
+﻿<style>
+    .table-responsive {
+        max-height: calc(100vh - 315px);
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="panel-title">Medical Infos</h3></div>
+                    <div class="col-sm-6 text-right">
+                        <button ui-sref="root.patient" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Back"><span class="glyphicon glyphicon-repeat"></span></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+
+
+
+                <div class="row" style="margin-bottom: 20px">
+
+                    <form class="form-horizontal" ng-submit="save()">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">Name</span>
+                                <input type="text" class="form-control" name="Name" ng-model="model.Name" autocomplete="off" required="required" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button type="submit" ng-show="!isUpdateMode" class="btn btn-floating btn-info">Save</button>
+                            <button type="button" ng-show="isUpdateMode" class="btn btn-floating btn-success" ng-click="update()">Update</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-responsive table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Charge</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in infos">
+                                        <td>{{s.Name}}</td>
+                                        <td>{{s.Charge}}</td>
+                                        <td>
+                                            <a class="glyphicon glyphicon-edit text-info" style="cursor: pointer;" ng-click="edit(s.Id)"></a>
+                                            &nbsp;&nbsp;
+                                            <a class="glyphicon glyphicon-remove text-info" style="cursor: pointer;" ng-click="delete(s.Id)"></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+</script>

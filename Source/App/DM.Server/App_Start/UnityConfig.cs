@@ -7,6 +7,7 @@ using System.Web.Http;
 using DM.AuthServer.Models;
 using DM.Models;
 using Unity.WebApi;
+using DM.Repository.Contacts;
 
 namespace DM.AuthServer
 {

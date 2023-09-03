@@ -311,6 +311,7 @@ var getVendorCssSources = function () {
     return [        
         "./Content/ng-grid.min.css",
         "./Content/angular-busy.css",       
+        "./Content/toaster.min.css",       
     ];
 };
 
@@ -325,6 +326,8 @@ var getVendorJsSources = function () {
         "./Scripts/ng-grid.min.js",
         "./Scripts/angular-busy.min.js",
         "./Scripts/checklist-model.js",
+        "./Scripts/angular-animate.min.js",
+        "./Scripts/toaster.min.js",
     ];
 };
 

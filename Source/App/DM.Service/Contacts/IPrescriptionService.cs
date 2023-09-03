@@ -10,5 +10,6 @@ namespace DM.Service.Contacts
     public interface IPrescriptionService: IBaseService<Prescription>
     {
         List<Prescription> GetPatientCurrentPrescription(Guid patientId);
+        List<Prescription> GetPatientHistory(Guid patientId);
     }
 }
