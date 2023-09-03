@@ -33,7 +33,7 @@ namespace DM.Models
 
 
         [NotMapped] public int Quantity { get; set; } = 1;
-        [NotMapped] public int TotalCharge { get => Convert.ToInt32(Charge) + Quantity; set => TotalCharge = value; }
+        [NotMapped] public int TotalCharge { get => Convert.ToInt32(Charge) * Quantity; set => TotalCharge = value; }
 
     }
 }
