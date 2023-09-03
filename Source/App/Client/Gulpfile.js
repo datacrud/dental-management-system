@@ -1,6 +1,9 @@
 ﻿var old = "1.0.0";
 var current = "1.1.0";
 
+var localTitle = "Dental Clinic";
+var productionTitle = "Mahmuda Dental Clinic & Healing Center";
+
 var oldVersionNo = "v" + old;
 var newVersionNo = "v" + current;
 
@@ -8,7 +11,8 @@ var footerOldVersion = "Version: " + old;
 var footerNewVersion = "Version: " + current;
 
 var localServerBaseUrl = "http://localhost:51633/";
-var productionServerBaseUrl = "https://mahmudadental.datacrud.com/";
+var productionServerBaseUrl = "https://mahmudadental.datacrud.com/server/";
+
 
 var templateUrlDevelopmentDirectory = "app/views/";
 var templateUrlProductionDirectory = "dist/" + newVersionNo + "/views/";
@@ -69,12 +73,15 @@ gulp.task("htmls", function (done) {
         //.pipe(minifyHTML())
         .pipe(debug())
         .pipe(replace("app/views/", "dist/" + newVersionNo + "/views/"))
+        .pipe(replace(localTitle, productionTitle))
+        .pipe(replace("./app/images/", "dist/" + newVersionNo + "/images/"))
         .pipe(gulp.dest(htmlDst))
         //.pipe(notify({ message: 'htmls task complete' }))
         ;
 
     gulp.src(["./index.html"])
         .pipe(replace(oldVersionNo, newVersionNo))
+        .pipe(replace(localTitle, productionTitle))
         .pipe(gulp.dest("./"));
 
     done();
