@@ -44,7 +44,7 @@ angular.module("dentalApp")
 
 
             $scope.copyright = new Date();
-            $scope.version = "Version: 1.0.0";
+            $scope.version = "Version: 1.1.0";
 
        
             init();

@@ -1,5 +1,5 @@
 ﻿var old = "1.0.0";
-var current = "1.0.0";
+var current = "1.1.0";
 
 var oldVersionNo = "v" + old;
 var newVersionNo = "v" + current;

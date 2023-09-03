@@ -285,8 +285,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <None Include="Properties\PublishProfiles\DentalManagement.Server.pubxml" />
-    <None Include="Properties\PublishProfiles\dentalserver.securebitlink.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local.deploy.server.pubxml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
