@@ -217,3 +217,4 @@ ModelManifest.xml
 /Source/App/**/**/.vs
 /Source/App/Client/dist
 Source/App/DM.Server/Properties/PublishProfiles/
+/Source/App/Client/Client.zip

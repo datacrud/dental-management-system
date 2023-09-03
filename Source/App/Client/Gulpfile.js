@@ -1,8 +1,8 @@
 ﻿var old = "1.0.0";
 var current = "1.1.0";
 
-var localTitle = "Dental Clinic";
-var productionTitle = "Mahmuda Dental Clinic & Healing Center";
+var localTitle = ">Dental Clinic<";
+var productionTitle = ">Mahmuda Dental Clinic & Healing Center<";
 
 var oldVersionNo = "v" + old;
 var newVersionNo = "v" + current;
