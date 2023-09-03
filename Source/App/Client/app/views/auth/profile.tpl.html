@@ -1,7 +1,7 @@
 ﻿<div class="row">
 
     <div>
-        <button ui-sref="root.dashboard" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></button>
+        <button ui-sref="root.patient" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></button>
     </div>
 
     <div class="col col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -50,7 +50,8 @@
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">&nbsp;</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <button type="submit" class="btn btn-floating btn-info">Update</button>
+                            <button ng-if="!isDemoUser" type="submit" class="btn btn-floating btn-info">Update</button>
+                            <span ng-if="isDemoUser" class="text-warning">Demo user are unauthorize to use this feature</span>
                         </div>
                     </div>
                 </form>
@@ -91,8 +92,8 @@
                     <div class="form-group">
                         <label class="control-label col col-xs-12 col-sm-4 col-md-4 col-lg-4">&nbsp;</label>
                         <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                            <button ng-disabled="isDemoUser" type="submit" class="btn btn-floating btn-info">Update Password</button><br/>
-                            <span class="text-warning">Demo user are unauthorize to use this feature</span>
+                            <button ng-if="!isDemoUser" ng-disabled="isDemoUser" type="submit" class="btn btn-floating btn-info">Update Password</button><br/>
+                            <span ng-if="isDemoUser" class="text-warning">Demo user are unauthorize to use this feature</span>
 
                         </div>
                     </div>

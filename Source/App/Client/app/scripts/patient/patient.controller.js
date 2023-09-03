@@ -33,13 +33,15 @@
                 if ($scope.key === undefined) {
                     $scope.loadPatientGridData();
                 } else {
-                    var request = { SearchKey: $scope.key, FilterId: $scope.filterId };
-                    $http.get(urlService.PatientUrl + "/Search", { params: { request: request } }).then(function(response) {
-                        console.log(response);
-                        $scope.myData = response.data;
-                    }, function(error) {
-                        console.log(error);
-                    });
+                    if ($scope.key.length > 2) {
+                        var request = { SearchKey: $scope.key, FilterId: $scope.filterId };
+                        $http.get(urlService.PatientUrl + "/Search", { params: { request: request } }).then(function (response) {
+                            console.log(response);
+                            $scope.myData = response.data;
+                        }, function (error) {
+                            console.log(error);
+                        });
+                    }
                 }
             };
 
@@ -53,6 +55,7 @@
                 { field: "Name", displayName: "Patient Name" },
                 { field: "Phone", displayName: "Phone" },
                 { field: "Age", displayName: "Age" },
+                { field: "Gender", displayName: "Gender" },
                 {
                     field: "LastVisitingDate", displayName: "Last Visiting Date",
                     cellTemplate: "<div style=\"padding-left: 5px\" ng-bind=\"row.getProperty(col.field) | date: 'dd MMMM yyyy'\"></div>"

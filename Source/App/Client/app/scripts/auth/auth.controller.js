@@ -1,7 +1,7 @@
 ﻿angular.module("dentalApp")
     .controller("LoginController", [
-        "$rootScope", "$scope", "$state", "AuthService", "LocalDataStorageService", "AppService", "AlertService",
-        function ($rootScope, $scope, $state, authService, localDataStorageService, appService, alertService) {
+        "$rootScope", "$scope", "$state", "AuthService", "AppService", "toaster",
+        function ($rootScope, $scope, $state, authService, appService, toaster) {
             "use strict";            
            
             $scope.credentials = { Username: "", Password: "", grant_type: "password" };
@@ -25,6 +25,8 @@
                 var successCallback = function(response) {
                     console.log(response);
 
+                    toaster.pop("success", "Successfully sign in...")
+
                     var success = function(response) {
                         console.log(response);
                         changeRoute(true);
@@ -37,7 +39,8 @@
                 };
                 var errorCallback = function(error) {
                     console.log(error);
-                    alertService.showAlert(alertService.alertType.danger, "Login Faield! invalid USERNAME or PASSWORD detected!", true);
+                    //alertService.showAlert(alertService.alertType.danger, "Login Faield! invalid USERNAME or PASSWORD detected!", true);
+                    toaster.pop("error", "Failed to signin! Please tray again.")
                     changeRoute(false);
                 };
                 $scope.promise = authService.authenticate($scope.credentials).then(successCallback, errorCallback);
@@ -68,8 +71,8 @@ angular.module("dentalApp")
 
 angular.module("dentalApp")
     .controller("ProfileController", [
-        "$scope", "UrlService", "LocalDataStorageService", "HttpService", "AlertService", "AuthService",
-        function ($scope, urlService, localDataStorageService,  httpService, alertService, authService) {
+        "$scope", "UrlService", "LocalDataStorageService", "$rootScope", "$state", "HttpService", "AuthService", "toaster",
+        function ($scope, urlService, localDataStorageService, $rootScope, $state, httpService, authService, toaster) {
 
             var init = function () {
                 $scope.model = [];
@@ -91,13 +94,19 @@ angular.module("dentalApp")
             $scope.updateProfile = function() {
                 var success = function(data) {
                     console.log(data);
-                    if (data.Result.Succeeded) alertService.showAlert(alertService.alertType.success, "Success", false);
-                    else alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
+                    if (data.Result.Succeeded) {
+                        //alertService.showAlert(alertService.alertType.success, "Success", false);
+                        toaster.pop("success", "Profile update successfully");
+                    }
+                    else {
+                        //alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
+                        toaster.pop("error", "Failed to update profile! Please try again.");
+                    }
                     $scope.loadProfile();
                 };
                 var error = function(error) {
                     console.log(error);
-                    alert("User Profile Update Faield!");
+                    toaster.pop("error","User Profile Update Faield!");
                 };
                 $scope.promise = httpService.add(urlService.ProfileUrl + "/UpdateProfile", $scope.model).then(success, error);
             };
@@ -111,17 +120,32 @@ angular.module("dentalApp")
 
                 var success = function(data) {
                     console.log(data);
-                    if (data) alertService.showAlert(alertService.alertType.success, "Success", false);
-                    else alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
-                    $scope.loadProfile();
+                    if (data) {
+                        //alertService.showAlert(alertService.alertType.success, "Success", false);
+                        toaster.pop("success", "Password changed successfully");
+
+                        $scope.logout();
+                    }
+                    else {
+                        //alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
+                        toaster.pop("error", "Failed to change password! Please tray again.");
+                    }
+                    //$scope.loadProfile();
                 };
                 var error = function(error) {
                     console.log(error);
-                    alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
+                    //alertService.showAlert(alertService.alertType.danger, "Failed! Please try agian", true);
+                    toaster.pop("error", "Failed to change password! Please tray again.");
                 };
                 $scope.promise = httpService.add(urlService.ProfileUrl + "/UpdatePassword", requestModel).then(success, error);
             };
 
+            $scope.logout = function () {
+
+                localDataStorageService.logout();
+                $rootScope.$broadcast('loggedOut');
+                $state.go("root.login", {}, { reload: true });
+            }
 
             init();
         }
