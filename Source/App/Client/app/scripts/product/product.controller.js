@@ -1,7 +1,7 @@
 ﻿angular.module("dentalApp")
     .controller("ProductController", [
-        "$scope", "$http", "AppService", "UrlService",
-        function ($scope, $http, appService, urlService) {
+        "$scope", "$http", "AppService", "UrlService", "toaster",
+        function ($scope, $http, appService, urlService, toaster) {
             "use strict";
 
             $scope.init = function() {
@@ -12,13 +12,14 @@
 
             $scope.products = [];
 
-            $scope.getProducts = function () {                
-                $http.get(urlService.ProductUrl + "/GetProducts").success(function (response) {
-                    console.log(response);
-                    $scope.products = response;
-                }).error(function(error) {
-                    console.log(error);
-                });
+            $scope.getProducts = function () {
+                $http.get(urlService.ProductUrl + "/GetProducts").then(
+                    function (response) {
+                        console.log(response);
+                        $scope.products = response;
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
             $scope.getProducts();
 
@@ -76,34 +77,35 @@
                     });
             };
 
-            $scope.delete = function(id) {
-                $http.get(urlService.ProductUrl + "/GetById?request=" + id).success(function(product) {
+            $scope.delete = function (id) {
+                $http.get(urlService.ProductUrl + "/GetById?request=" + id).then(function (product) {
                     console.log(product);
 
                     var bool = confirm("Are you sure, you want to delete " + product.Name + " ?");
                     if (bool === true) {
-                        $http.delete(urlService.ProductUrl + "/Delete?request=" + id).then(function(response) {
+                        $http.delete(urlService.ProductUrl + "/Delete?request=" + id).then(function (response) {
                             console.log(response);
                             $scope.getProducts();
-                        }, function(error) {
+                        }, function (error) {
                             console.log(error);
                         });
                     }
-                }).error(function(error) {
+                }, function (error) {
                     console.log(error);
-                    alert("Failed to delete this product! Please try again.");
+                    toaster.pop("error","Failed to delete this product! Please try again.");
                 });
             };
 
             $scope.key = "";
 
-            $scope.search = function() {
-                $http.get(urlService.ProductUrl + "/SearchProduct", { params: { request: $scope.key } }).success(function(response) {
-                    console.log(response);
-                    $scope.products = response;
-                }).error(function(error) {
-                    console.log(error);
-                });
+            $scope.search = function () {
+                $http.get(urlService.ProductUrl + "/SearchProduct", { params: { request: $scope.key } }).then(
+                    function (response) {
+                        console.log(response);
+                        $scope.products = response;
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
 
             $scope.isKeyNull = function(key) {

@@ -20,13 +20,14 @@
 
             $scope.products = [];
             $scope.getProducts = function () {
-                $http.get(urlService.ProductUrl + "/GetProductsIncludeStatus").success(function (response) {
-                    console.log(response);
-                    $scope.products = response;
-                    $scope.myData = $scope.products;
-                }).error(function (error) {
-                    console.log(error);
-                });
+                $http.get(urlService.ProductUrl + "/GetProductsIncludeStatus").then(
+                    function (response) {
+                        console.log(response);
+                        $scope.products = response;
+                        $scope.myData = $scope.products;
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
             $scope.getProducts();                        
 

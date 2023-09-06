@@ -2,7 +2,7 @@
 var current = "1.1.0";
 
 var localTitle = ">Dental Clinic<";
-var productionTitle = ">Mahmuda Dental Clinic & Healing Center<";
+var productionTitle = ">Mahmuda Dental Surgery & Healing Center<";
 
 var oldVersionNo = "v" + old;
 var newVersionNo = "v" + current;
@@ -326,7 +326,7 @@ var getVendorCssSources = function () {
 
 var getVendorJsSources = function () {
     return [
-        "./Scripts/angular/angular.min.js",
+        "./Scripts/angular.min.js",
         "./Scripts/angular-ui/angular-ui-router.min.js",
         "./Scripts/angular-ui/ui-bootstrap.min.js",
         "./Scripts/angular-ui/ui-bootstrap-tpls.min.js",
@@ -347,7 +347,7 @@ var getThemeCssSources = function () {
 
 var getThemeJsSources = function () {
     return [
-        "./Scripts/jquery-2.2.3.min.js",
+        "./Scripts/jquery-2.2.4.min.js",
         "./Scripts/bootstrap.min.js",  
     ];
 };

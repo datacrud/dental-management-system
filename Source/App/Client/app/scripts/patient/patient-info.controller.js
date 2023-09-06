@@ -13,10 +13,10 @@
 
             $scope.infos = [];
             $scope.getMedicalInfos = function() {
-                $http.get(urlService.MedicalInfoUrl + "/GetAll").success(function(response) {
+                $http.get(urlService.MedicalInfoUrl + "/GetAll").then(function (response) {
                     console.log(response);
                     $scope.infos = response;
-                }).error(function(error) {
+                }, function (error) {
                     console.log(error);
                 });
             };

@@ -12,13 +12,14 @@
             $scope.isUpdateMode = false;
 
             $scope.services = [];
-            $scope.getMedicalServices = function() {
-                $http.get(urlService.MedicalServiceUrl + "/GetAll").success(function(response) {
-                    console.log(response);
-                    $scope.services = response;
-                }).error(function(error) {
-                    console.log(error);
-                });
+            $scope.getMedicalServices = function () {
+                $http.get(urlService.MedicalServiceUrl + "/GetAll").then(
+                    function (response) {
+                        console.log(response);
+                        $scope.services = response;
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
             $scope.getMedicalServices();
 

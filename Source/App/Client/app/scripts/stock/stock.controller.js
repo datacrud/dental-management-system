@@ -23,10 +23,10 @@
 
             $scope.productsName = [];
             $scope.getProductsName = function () {
-                $http.get(urlService.ProductUrl + "/GetProductsName").success(function (response) {
+                $http.get(urlService.ProductUrl + "/GetProductsName").then(function (response) {
                     console.log(response);
                     $scope.productsName = response;
-                }).error(function (error) {
+                }, function (error) {
                     console.log(error);
                 });
             };
@@ -57,11 +57,11 @@
 
             $scope.product = {};
             $scope.getProduct = function(id) {
-                $http.get(urlService.ProductUrl + "/GetById?request=" + id).success(function(response) {
+                $http.get(urlService.ProductUrl + "/GetById?request=" + id).then(function (response) {
                     console.log(response);
                     $scope.product = response;
                     $scope.stock.OnHand = response.OnHand;
-                }).error(function(error) {
+                }, function (error) {
                     console.log(error);
                     $scope.product = {};
                 });

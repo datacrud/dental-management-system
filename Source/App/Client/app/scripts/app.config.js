@@ -52,13 +52,15 @@ angular.module("dentalApp", ["ui.router", "ngGrid", "ui.bootstrap", "checklist-m
         }
     ])
     .config([
-        "$urlRouterProvider", "$stateProvider", "$httpProvider",
-        function ($urlRouterProvider, $stateProvider, $httpProvider) {
+        "$urlRouterProvider", "$stateProvider", "$httpProvider", "$qProvider",
+        function ($urlRouterProvider, $stateProvider, $httpProvider, $qProvider) {
             "use strict";
+
+            $qProvider.errorOnUnhandledRejections(false);
 
             $httpProvider.interceptors.push('tokenInterceptor');
 
-            $urlRouterProvider.otherwise("/");
+            $urlRouterProvider.otherwise("/patient");
 
             $stateProvider
                 .state("root", {

@@ -41,19 +41,20 @@
 
                 $scope.patientMedicalConditions = []
 
-                $http.get(urlService.MedicalInfoUrl + "/GetPatientMedicalInfos", { params: { patientId: patientId } }).success(function (response) {
-                    console.log(response);
-                    $scope.infos = response;
+                $http.get(urlService.MedicalInfoUrl + "/GetPatientMedicalInfos", { params: { patientId: patientId } }).then(
+                    function (response) {
+                        console.log(response);
+                        $scope.infos = response;
 
-                    for (var i = 0; i < $scope.infos.length; i++) {
-                        var info = $scope.infos[i];
-                        if (info.IsChecked) {
-                            $scope.patientMedicalConditions.push(info.Name);
+                        for (var i = 0; i < $scope.infos.length; i++) {
+                            var info = $scope.infos[i];
+                            if (info.IsChecked) {
+                                $scope.patientMedicalConditions.push(info.Name);
+                            }
                         }
-                    }
-                }).error(function (error) {
-                    console.log(error);
-                });
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
 
             $scope.savePatientMedicalInfo = function () {
@@ -67,25 +68,27 @@
                     }
                 }
 
-                $http.post(urlService.MedicalInfoUrl + "/SavePatientMedicalInfos", JSON.stringify(patientMedicalInfos)).success(function (response) {
-                    console.log(response);
-                    $scope.infos = response;
+                $http.post(urlService.MedicalInfoUrl + "/SavePatientMedicalInfos", JSON.stringify(patientMedicalInfos)).then(
+                    function (response) {
+                        console.log(response);
+                        $scope.infos = response;
 
-                    $scope.getMedicalInfos($scope.patientInfo.Id);
-                }).error(function (error) {
-                    console.log(error);
-                });
+                        $scope.getMedicalInfos($scope.patientInfo.Id);
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
 
 
             $scope.patientHistories = []
             $scope.getPatientHistory = function (patientId) {                
-                $http.get(urlService.PrescriptionUrl + "/GetPatientHistory", { params: { patientId: patientId } }).success(function (response) {
-                    console.log(response);
-                    $scope.patientHistories = response;                    
-                }).error(function (error) {
-                    console.log(error);
-                });
+                $http.get(urlService.PrescriptionUrl + "/GetPatientHistory", { params: { patientId: patientId } }).then(
+                    function (response) {
+                        console.log(response);
+                        $scope.patientHistories = response;
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
             
 

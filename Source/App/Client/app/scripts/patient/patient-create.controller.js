@@ -29,14 +29,16 @@
             
 
             $scope.medicalServices = [];
-            $scope.getMedicalServices = function() {
+            $scope.getMedicalServices = function () {
                 $scope.medicalServices = [];
-                $http.get(urlService.MedicalServiceUrl + "/GetAllOrderByName").success(function(response) {
-                    console.log(response);
-                    $scope.medicalServices = response;
-                }).error(function(error) {
-                    console.log(error);
-                });
+                $http.get(urlService.MedicalServiceUrl + "/GetAllOrderByName").then(
+                    function (response) {
+                        console.log(response);
+                        $scope.medicalServices = response;
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
             };
             $scope.getMedicalServices();
 

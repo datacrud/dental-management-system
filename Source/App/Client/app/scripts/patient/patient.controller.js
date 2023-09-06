@@ -33,15 +33,13 @@
                 if ($scope.key === undefined) {
                     $scope.loadPatientGridData();
                 } else {
-                    if ($scope.key.length > 2) {
-                        var request = { SearchKey: $scope.key, FilterId: $scope.filterId };
-                        $http.get(urlService.PatientUrl + "/Search", { params: { request: request } }).then(function (response) {
-                            console.log(response);
-                            $scope.myData = response.data;
-                        }, function (error) {
-                            console.log(error);
-                        });
-                    }
+                    var request = { SearchKey: $scope.key, FilterId: $scope.filterId };
+                    $http.get(urlService.PatientUrl + "/Search", { params: { request: request } }).then(function (response) {
+                        console.log(response);
+                        $scope.myData = response.data;
+                    }, function (error) {
+                        console.log(error);
+                    });
                 }
             };
 
