@@ -17,6 +17,9 @@
                 ];
 
                 $scope.pageName = 'new-patient';
+
+
+                $scope.medicalServices = [];
             };
             $scope.init();
 
@@ -28,13 +31,12 @@
             };
             
 
-            $scope.medicalServices = [];
             $scope.getMedicalServices = function () {
-                $scope.medicalServices = [];
+                
                 $http.get(urlService.MedicalServiceUrl + "/GetAllOrderByName").then(
                     function (response) {
                         console.log(response);
-                        $scope.medicalServices = response;
+                        $scope.medicalServices = response.data;
                     },
                     function (error) {
                         console.log(error);

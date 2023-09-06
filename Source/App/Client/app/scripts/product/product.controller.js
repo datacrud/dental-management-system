@@ -16,7 +16,7 @@
                 $http.get(urlService.ProductUrl + "/GetProducts").then(
                     function (response) {
                         console.log(response);
-                        $scope.products = response;
+                        $scope.products = response.data;
                     }, function (error) {
                         console.log(error);
                     });
@@ -102,7 +102,7 @@
                 $http.get(urlService.ProductUrl + "/SearchProduct", { params: { request: $scope.key } }).then(
                     function (response) {
                         console.log(response);
-                        $scope.products = response;
+                        $scope.products = response.data;
                     }, function (error) {
                         console.log(error);
                     });

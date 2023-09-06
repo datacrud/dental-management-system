@@ -44,7 +44,7 @@
                 $http.get(urlService.MedicalInfoUrl + "/GetPatientMedicalInfos", { params: { patientId: patientId } }).then(
                     function (response) {
                         console.log(response);
-                        $scope.infos = response;
+                        $scope.infos = response.data;
 
                         for (var i = 0; i < $scope.infos.length; i++) {
                             var info = $scope.infos[i];
@@ -71,7 +71,7 @@
                 $http.post(urlService.MedicalInfoUrl + "/SavePatientMedicalInfos", JSON.stringify(patientMedicalInfos)).then(
                     function (response) {
                         console.log(response);
-                        $scope.infos = response;
+                        $scope.infos = response.data;
 
                         $scope.getMedicalInfos($scope.patientInfo.Id);
                     }, function (error) {
@@ -85,7 +85,7 @@
                 $http.get(urlService.PrescriptionUrl + "/GetPatientHistory", { params: { patientId: patientId } }).then(
                     function (response) {
                         console.log(response);
-                        $scope.patientHistories = response;
+                        $scope.patientHistories = response.data;
                     }, function (error) {
                         console.log(error);
                     });
@@ -275,40 +275,6 @@
                 }
             };
 
-            //$scope.printDiv = function(divName) {
-            //    var printContents = document.getElementById(divName).innerHTML;
-            //    var originalContents = document.body.innerHTML;
-            //    var popupWin;
-            //    if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-            //        popupWin = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-            //        popupWin.window.focus();
-            //        popupWin.document.write('<!DOCTYPE html><html><head>' + '<link href="Content/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/>' + '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
-            //        popupWin.onbeforeunload = function(event) {
-            //            popupWin.close();
-            //            return '.n';
-            //        };
-            //        popupWin.onabort = function(event) {
-            //            popupWin.document.close();
-            //            popupWin.close();
-            //        }
-            //    } else {
-            //        popupWin = window.open('', '_blank', 'width=800,height=600');
-            //        popupWin.document.open();
-            //        popupWin.document.write('<html><head><link href="../Content/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/></head><body onload="window.print()">' + printContents + '</html>');
-            //        popupWin.document.close();
-            //    }
-            //    popupWin.document.close();
-            //    return true;
-            //};
-
-            //$scope.printDiv = function (divName) {
-            //    var printContents = document.getElementById(divName).innerHTML;
-            //    var popupWin = window.open('', '_blank', 'width=300,height=300');
-            //    popupWin.document.open();
-            //    popupWin.document.write('<html><head><link href="../Content/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/></head><body onload="window.print()">' + printContents + '</html>');
-            //    popupWin.document.close();
-            //}
-
 
             //print instance model
             $scope.animationsEnabled = true;
@@ -354,6 +320,11 @@ angular.module("dentalApp")
             $scope.ok = function () {
                 $uibModalInstance.close();
             };            
+
+            $scope.print = function () {
+                window.print();
+                $scope.cancel();
+            };
 
 
             $scope.printDiv = function (divName) {

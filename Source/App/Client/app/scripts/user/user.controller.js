@@ -19,7 +19,7 @@
             $scope.getRoles = function() {
                 var success = function(response) {
                     console.log(response);
-                    $scope.roles = response;
+                    $scope.roles = response.data;
                     $scope.getUsers();
                 };
                 var error = function(error) {
@@ -39,7 +39,7 @@
             $scope.getUsers = function() {
                 var success = function(response) {
                     console.log(response);
-                    $scope.list = response;
+                    $scope.list = response.data;
                 };
                 var error = function(error) {
                     console.log(error);
@@ -80,7 +80,7 @@
             $scope.getUser = function(id) {
                 var success = function(response) {
                     console.log(response);
-                    $scope.model = response;
+                    $scope.model = response.data;
                     $scope.model.PasswordHash = "";
                     $scope.model.RetypePassword = "";
                     $scope.model.RoleId = response.Roles[0].RoleId;

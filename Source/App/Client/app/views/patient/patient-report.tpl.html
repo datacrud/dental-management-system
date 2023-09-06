@@ -1,17 +1,15 @@
 ﻿<div class="row">
 
-    <div>
-        <button ui-sref="root.patient" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></button>
-    </div>
-
-
-
-
     <div class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="panel panel-success">
-            <!-- Default panel contents -->
-            <div class="panel-heading">
-                <h3 class="panel-title">Patient Service Report</h3>
+            
+            <div class="panel-heading">                
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="panel-title">Patient Service Report</h3></div>
+                    <div class="col-sm-6 text-right">
+                        <button ui-sref="root.patient" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Back"><span class="glyphicon glyphicon-repeat"></span></button>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <form ng-submit="loadPatientPaymentsReports()">

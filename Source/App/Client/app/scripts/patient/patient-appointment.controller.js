@@ -121,8 +121,8 @@
                 $http.post(urlService.AppointmentUrl + "/Create", JSON.stringify($scope.appointment)).then(function(response) {
                     console.log(response);
                     $scope.filter.DateKey = $scope.appointment.Date;
-                    $scope.loadAppointmentsByDate();
-                    $scope.init();
+                    init();
+                    $scope.loadAppointmentsByDate();                    
                 }, function(error) {
                     console.log(error);
                 });

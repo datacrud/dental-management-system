@@ -56,7 +56,7 @@ angular.module("dentalApp", ["ui.router", "ngGrid", "ui.bootstrap", "checklist-m
         function ($urlRouterProvider, $stateProvider, $httpProvider, $qProvider) {
             "use strict";
 
-            $qProvider.errorOnUnhandledRejections(false);
+            //$qProvider.errorOnUnhandledRejections(false);
 
             $httpProvider.interceptors.push('tokenInterceptor');
 

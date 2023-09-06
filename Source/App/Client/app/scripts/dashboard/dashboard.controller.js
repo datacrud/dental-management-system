@@ -23,7 +23,7 @@
                 $http.get(urlService.ProductUrl + "/GetProductsIncludeStatus").then(
                     function (response) {
                         console.log(response);
-                        $scope.products = response;
+                        $scope.products = response.data;
                         $scope.myData = $scope.products;
                     }, function (error) {
                         console.log(error);

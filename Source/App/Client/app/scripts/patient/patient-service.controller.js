@@ -16,7 +16,7 @@
                 $http.get(urlService.MedicalServiceUrl + "/GetAll").then(
                     function (response) {
                         console.log(response);
-                        $scope.services = response;
+                        $scope.services = response.data;
                     }, function (error) {
                         console.log(error);
                     });

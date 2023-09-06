@@ -15,7 +15,7 @@
             $scope.getMedicalInfos = function() {
                 $http.get(urlService.MedicalInfoUrl + "/GetAll").then(function (response) {
                     console.log(response);
-                    $scope.infos = response;
+                    $scope.infos = response.data;
                 }, function (error) {
                     console.log(error);
                 });

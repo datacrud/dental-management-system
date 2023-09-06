@@ -25,7 +25,7 @@
             $scope.getProductsName = function () {
                 $http.get(urlService.ProductUrl + "/GetProductsName").then(function (response) {
                     console.log(response);
-                    $scope.productsName = response;
+                    $scope.productsName = response.data;
                 }, function (error) {
                     console.log(error);
                 });
@@ -59,7 +59,7 @@
             $scope.getProduct = function(id) {
                 $http.get(urlService.ProductUrl + "/GetById?request=" + id).then(function (response) {
                     console.log(response);
-                    $scope.product = response;
+                    $scope.product = response.data;
                     $scope.stock.OnHand = response.OnHand;
                 }, function (error) {
                     console.log(error);

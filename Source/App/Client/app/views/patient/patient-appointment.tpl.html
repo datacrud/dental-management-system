@@ -1,243 +1,141 @@
-﻿<div class="row">
+﻿<style>
+    .table-responsive {
+        height: calc(100vh - 470px);
+    }
+</style>
 
-    <div>
-        <button ui-sref="root.patient" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></button>
-    </div>
+<div class="row">
 
-    <div class="col col-xs-12 col-sm-6 col-md-5 col-lg-5">
-
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add Appointment</h3>
-            </div>
-            <div class="panel-body">
-
-                <!--<uib-tabset justified="true">
-                    <uib-tab heading="New Patinet" style="cursor: pointer">
-                        <br/>-->
-                        <form class="form-horizontal" ng-submit="save()">
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Patient Name :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="text" class="form-control text-capitalize" name="Name" ng-model="appointment.PatientNameOrId" autocomplete="off" required="required"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Age :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control" name="Name" ng-model="appointment.Age" autocomplete="off" required="required"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Phone :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="text" class="form-control text-capitalize" name="Charge" ng-model="appointment.Phone" autocomplete="off"/>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Date :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="appointment.Date" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" ng-change="loadThisDateAppointments()"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                                    <br/>
-                                    <br/>
-                                    Time :
-                                    <br/>
-                                    <br/>
-                                </label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <uib-timepicker ng-model="appointment.Time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" aria-required="true"></uib-timepicker>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">&nbsp;</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <button type="submit" ng-show="!isUpdateMode" class="btn btn-floating btn-warning" >Save</button>
-                                    <button type="button" ng-show="isUpdateMode" class="btn btn-floating btn-success" ng-click="update()">Update</button>
-                                </div>
-                            </div>
-                        </form>
-                    <!--</uib-tab>-->
-                    <!--<uib-tab heading="Existing Patient" style="cursor: pointer">
-                        <br/>
-                        <form class="form-horizontal">
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Patient Id :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="text" class="form-control" name="Name" ng-model="service.Name" autocomplete="off" required=""/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Age :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="text" class="form-control" name="Name" ng-model="service.Name" autocomplete="off"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Phone :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control text-capitalize" name="Charge" ng-model="service.Charge" autocomplete="off"/>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Date :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                                    <br/>
-                                    <br/>
-                                    Time :
-                                    <br/>
-                                    <br/>
-                                </label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" aria-required="true"></uib-timepicker>
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">&nbsp;</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <button type="submit" ng-show="!isUpdateMode" class="btn btn-floating btn-warning" ng-click="save()">Save</button>
-                                    <button type="submit" ng-show="isUpdateMode" class="btn btn-floating btn-success" ng-click="update()">Update</button>
-                                </div>
-                            </div>
-                        </form>
-                    </uib-tab>-->
-                    <!--<uib-tab heading="Setting" style="cursor: pointer">
-                        <br/>
-                        <form class="form-horizontal">
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Start Time :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="time" class="form-control" name="Name" ng-model="setting.Start" autocomplete="off" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">End Time :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="time" class="form-control" name="Name" ng-model="setting.End" autocomplete="off" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">Interval (minutes) :</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <input type="number" class="form-control text-capitalize" name="Charge" ng-model="setting.Interval" autocomplete="off" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col col-xs-12 col-sm-4 col-md-3 col-lg-3">&nbsp;</label>
-                                <div class="col col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                                    <button type="submit" ng-show="!isUpdateMode" class="btn btn-floating btn-warning" ng-click="save()">Save</button>
-                                    <button type="submit" ng-show="isUpdateMode" class="btn btn-floating btn-success" ng-click="update()">Update</button>
-                                </div>
-                            </div>
-                        </form>
-                    </uib-tab>-->
-                <!--</uib-tabset>-->        
-
-                
-            </div>
-            <div class="panel-footer"></div>
-        </div>
-
-    </div>
-
-<div class="col col-xs-12 col-sm-6 col-md-7 col-lg-7">
+    
+<div class="col-sm-12">
     <div class="panel panel-warning">
+        
         <div class="panel-heading">
-            <h3 class="panel-title">Appointments</h3>
+            <div class="row">
+                <div class="col-sm-6"><h3 class="panel-title">Appointments</h3></div>
+                <div class="col-sm-6 text-right">
+                    <button ui-sref="root.patient" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Back"><span class="glyphicon glyphicon-repeat"></span></button>
+                </div>
+            </div>
         </div>
+
         <div class="panel-body">
-            <div class="form-group">
-                <div class="col col-xs-9 col-sm-6 col-md-6 col-lg-6">
-                    <input class="form-control input-field" type="text" placeholder="Search By Id, Name" required="required" ng-model="filter.SearchKey" ng-change="search(filter.SearchKey)"/>
+
+            <form class="form-horizontal" ng-submit="save()">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Patient Name</span>
+                            <input type="text" class="form-control text-capitalize" name="Name" ng-model="appointment.PatientNameOrId" autocomplete="off" required="required" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">Age</span>
+                            <input type="number" class="form-control" name="Name" ng-model="appointment.Age" autocomplete="off" required="required" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">Phone</span>
+                            <input type="text" class="form-control text-capitalize" name="Charge" ng-model="appointment.Phone" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">Date</span>
+                            <div class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="appointment.Date" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" ng-change="loadThisDateAppointments()" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">Time</span>
+
+                            <div uib-timepicker  ng-model="appointment.Time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" aria-required="true"></div>
+
+                            <!--<uib-timepicker ng-model="appointment.Time" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" aria-required="true"></uib-timepicker>-->
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-1">
+                        <button type="submit" ng-show="!isUpdateMode" class="btn btn-floating btn-warning">Save</button>
+                        <button type="button" ng-show="isUpdateMode" class="btn btn-floating btn-success" ng-click="update()">Update</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <input class="form-control input-field" type="text" placeholder="Search By Id, Name" required="required" ng-model="filter.SearchKey" ng-change="search(filter.SearchKey)" />
                 </div>
                 <form ng-submit="loadAppointmentsByDate()">
-                    <div class="col col-xs-9 col-sm-4 col-md-4 col-lg-4">
-                        <input class="form-control input-field" type="date" required="required" ng-model="filter.DateKey" ng-change="loadPreviousDateAppointment()"/>
-                    </div>
-                    <div class="col col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                        <!--<button type="submit" class="btn btn-default pull-left"><span class="glyphicon glyphicon-search"></span></button>-->
+                    <div class="col-sm-2">
+                        <input class="form-control input-field" type="date" required="required" ng-model="filter.DateKey" ng-change="loadPreviousDateAppointment()" />
                     </div>
                 </form>
-            </div>
-        </div>
-        <table class="table table-striped table-responsive table-hover table-bordered ">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="a in appointments">
-                <td>{{a.Code}}</td>
-                <td>{{a.PatientNameOrId}}</td>
-                <td>{{a.Age}}</td>
-                <td>{{a.Phone}}</td>
-                <td>{{a.Date | date: 'dd-MMMM-yyyy'}}</td>
-                <td>{{a.Time | date: 'h:mma'}}</td>
-                <td>{{a.Status.Name}}</td>
-                <td>
-                    <a class="glyphicon glyphicon-edit text-warning" style="cursor: pointer;" ng-click="edit(a.Id)"></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="glyphicon glyphicon-ok text-warning" style="cursor: pointer;" ng-click="visited(a.Id)"></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="glyphicon glyphicon-print text-warning" style="cursor: pointer;" ng-click="open('',a)"></a>
-                </td>
-            </tr>
 
-            </tbody>
-        </table>
-        <br/>
-        <div class="panel-footer"></div>
-        <br />
-        <br />
-        <br />
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-responsive table-hover table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Phone</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="a in appointments">
+                                    <td>{{a.Code}}</td>
+                                    <td>{{a.PatientNameOrId}}</td>
+                                    <td>{{a.Age}}</td>
+                                    <td>{{a.Phone}}</td>
+                                    <td>{{a.Date | date: 'dd-MMMM-yyyy'}}</td>
+                                    <td>{{a.Time | date: 'h:mma'}}</td>
+                                    <td>{{a.Status.Name}}</td>
+                                    <td>
+                                        <a class="glyphicon glyphicon-edit text-warning" style="cursor: pointer;" ng-click="edit(a.Id)"></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-ok text-warning" style="cursor: pointer;" ng-click="visited(a.Id)"></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a class="glyphicon glyphicon-print text-warning" style="cursor: pointer;" ng-click="open('',a)"></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="panel-footer"></div>        
     </div>
 </div>
 </div>

@@ -1,11 +1,50 @@
 ﻿<style>
     .panel-body {
         overflow: auto;
-        height: calc(100vh - 230px);
+        height: calc(100vh - 240px);
     }
 
     .table-responsive {
         max-height: calc(100vh - 294px);
+    }
+
+
+    @media print {
+
+        body * {
+            visibility: hidden;
+        }
+
+        #print-content * {
+            overflow: visible;
+            visibility: visible;
+        }
+
+        .modal {
+            left: 0;
+            margin: 0;
+            min-height: 550px;
+            /**Remove scrollbar for printing.**/
+            overflow: visible !important;
+            padding: 0;
+            position: absolute;
+            top: 0;
+            visibility: visible;
+        }
+
+        .modal-dialog {
+            /**Remove scrollbar for printing.**/
+            overflow: visible !important;
+            visibility: visible !important;
+        }
+
+        li {
+            page-break-after: auto;
+        }
+
+        div {
+            page-break-inside: avoid;
+        }
     }
 </style>
 
@@ -144,7 +183,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="p in infos">
+                                    <tr ng-repeat="p in infos track by $index">
                                         <td><input type="checkbox" ng-model="infos[$index].IsChecked" /></td>
                                         <td>{{p.Name}}</td>
                                     </tr>
@@ -218,7 +257,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="p in payments" id="printable">
+                        <tr ng-repeat="p in payments">
                             <td>{{p.Created | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                             <td>{{p.Amount}}</td>
                             <td>{{p.Comment}}</td>
@@ -401,7 +440,7 @@
     <div class="modal-header">
         <h3 class="modal-title">Payment Receipt</h3>
     </div>
-    <div class="modal-body" id="printableModel" style="width:750px; height:auto; float:left">
+    <div class="modal-body" id="print-content" style="width:750px; height:auto; float:left">
         <div class="col col-md-6" style="width:45%; float:left; margin-right: 2.5%">
             <div class="row text-center">
                 <img src="./app/images/logo/logo-default.png"   width="50" />
@@ -503,7 +542,7 @@
     </div>
     <div class="modal-footer">
         <div class="col col-md-12">
-            <button class="btn btn-info pull-left" type="button" ng-click="printDiv('printableModel')">Print</button>
+            <button class="btn btn-info pull-left" type="button" ng-click="print()">Print</button>
             <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
