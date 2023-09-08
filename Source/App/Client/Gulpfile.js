@@ -1,8 +1,11 @@
-﻿var old = "1.0.0";
-var current = "1.1.0";
+﻿var old = "1.1.0";
+var current = "1.1.1";
 
 var localTitle = ">Dental Clinic<";
 var productionTitle = ">Mahmuda Dental Surgery & Healing Center<";
+
+var localAddress = ">Chamber Address<";
+var productionAddress = ">8/L/20, Middle Nandipara <br />(Former House # 13, Road # 3, One Bank Goli), <br/>Dhaka 1214<";
 
 var oldVersionNo = "v" + old;
 var newVersionNo = "v" + current;
@@ -43,8 +46,8 @@ var gulp = require("gulp"),
 
     replace = require("gulp-replace"),
     gutil = require('gulp-util'),
-    pump = require('pump');
-
+    pump = require('pump'),
+    rename = require('gulp-rename');
 
 
 // minify new images
@@ -74,14 +77,16 @@ gulp.task("htmls", function (done) {
         .pipe(debug())
         .pipe(replace("app/views/", "dist/" + newVersionNo + "/views/"))
         .pipe(replace(localTitle, productionTitle))
+        .pipe(replace(localAddress, productionAddress))
         .pipe(replace("./app/images/", "dist/" + newVersionNo + "/images/"))
         .pipe(gulp.dest(htmlDst))
         //.pipe(notify({ message: 'htmls task complete' }))
         ;
 
-    gulp.src(["./index.html"])
+    gulp.src(["./index-prod.html"])
         .pipe(replace(oldVersionNo, newVersionNo))
         .pipe(replace(localTitle, productionTitle))
+        .pipe(rename('index.html'))
         .pipe(gulp.dest("./"));
 
     done();
@@ -192,7 +197,7 @@ gulp.task("replace-footer-version", function (done) {
 
 // Clean
 gulp.task("clean", function (cb) {
-    del(["dist", ".temp"], cb, { dryRun: true });
+    del(["dist", ".temp", "index.html"], cb, { dryRun: true });
     console.log("clean task finished");
     return new Promise(function (resolve, reject) {
         console.log("HTTP Server Started");
